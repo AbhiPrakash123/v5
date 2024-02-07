@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createTheme, Theme } from '@mui/material';
 import { ThemeProvider as TM } from "@mui/material/styles";
+import CssBaseline from '@mui/material/CssBaseline';
 import { getTheme } from '@/lib/features/theme/themeSlice'
 import { useAppSelector } from '@/store/hooks'
 
@@ -25,8 +26,8 @@ const darkTheme = createTheme({
     palette: {
         mode: 'dark',
         background: {
-            default: '#2E2F32', // Dark background color
-            paper: "#0003"
+            default: '#131313', // Dark background color
+            paper: "#000"
         },
     },
 });
@@ -38,7 +39,10 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const theme: Theme = themeType === 'dark' ? darkTheme : lightTheme
     // console.log("create new theme")
 
-    return <TM theme={theme}>{children}</TM>;
+    return <TM theme={theme}>
+        <CssBaseline />
+        {children}
+    </TM>;
 };
 
 export default ThemeProvider;

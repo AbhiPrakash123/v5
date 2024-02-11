@@ -6,7 +6,7 @@ import { Box } from "@mui/material"
 import Sidebar from "@/components/sidebar";
 import Lab from "@/components/lab";
 
-export default function LabBuilder() {
+export default function Livebench() {
     return (
         <ThemeProvider>
             <CssBaseline />
@@ -16,10 +16,10 @@ export default function LabBuilder() {
                 </Box>
                 <Box className="tw-flex-grow tw-flex tw-flex-col tw-flex-shrink-0">
                     <Box className="tw-h-[64px]">
-                        <Header builder/>
+                        <Header />
                     </Box>
                     <Box className="tw-flex-grow">
-                        <Lab builder/>
+                        <Lab />
                     </Box>
                 </Box>
 

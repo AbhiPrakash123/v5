@@ -6,8 +6,9 @@ import { getTheme } from '@/lib/features/theme/themeSlice'
 import { useAppSelector } from '@/store/hooks'
 
 import AddchartIcon from '@mui/icons-material/Addchart';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import PermMediaIcon from '@mui/icons-material/PermMedia';
 import ArticleIcon from '@mui/icons-material/Article';
+import CommentIcon from '@mui/icons-material/Comment';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const AnimateSidebar = motion(Paper)
@@ -44,7 +45,12 @@ const Sidebar: React.FC = () => {
         },
         {
             name: "library",
-            icon: <LibraryBooksIcon />,
+            icon: <PermMediaIcon />,
+            link: "/*"
+        },
+        {
+            name: "comments",
+            icon: <CommentIcon />,
             link: "/*"
         },
         {
@@ -77,7 +83,7 @@ const Sidebar: React.FC = () => {
     )
     return (
         <AnimateSidebar
-            className={`tw-h-full tw-border tw-m-0 `}
+            className={`tw-h-full tw-m-0 tw-border-t-0 tw-border-l-0 tw-border-b-0`}
             variant="outlined"
             square
             onMouseEnter={handleMouseEnter}
@@ -86,7 +92,7 @@ const Sidebar: React.FC = () => {
             animate={controls}
             initial="closed"
         >
-            <Paper variant="outlined" square className=" tw-border-r-0 tw-w-full tw-h-[64px] tw-m-0 tw-flex tw-flex-row tw-justify-between tw-items-center">
+            <Paper variant="outlined" square className=" tw-border-r-0 tw-border-l-0 tw-border-t-0 tw-w-full tw-h-[64px] tw-m-0 tw-flex tw-flex-row tw-justify-between tw-items-center">
                 {open ? livebenchLogo : <TenxerIconBlue />}
             </Paper>
 

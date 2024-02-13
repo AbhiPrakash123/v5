@@ -1,7 +1,7 @@
 import { Paper, Box, Button } from "@mui/material"
 import { useState } from "react";
 import { FeatureBarProps } from "./featurebar";
-import { Add, Delete } from "@mui/icons-material";
+import { Add, Delete,Power } from "@mui/icons-material";
 import EditableText from "@/components/editableText";
 
 const FeatureBar = (props: FeatureBarProps) => {
@@ -28,20 +28,20 @@ const FeatureBar = (props: FeatureBarProps) => {
             </Box> */}
             <Box className="tw-flex tw-items-center">
                 {features.map((item, i) =>
-                    <Paper
-                        square
+                    <Button
+                        variant="outlined"
                         key={i}
-                        sx={active === item.id?{ backgroundColor: "background.default" }:{backgroundColor: "background.paper"}}
-                        className={`${active === item.id?"tw-border-b-0":""} tw-border-t-0 tw-border-l-0 tw-flex tw-h-full tw-items-center tw-cursor-pointer tw-min-w-32 tw-justify-center hover:tw-bg-blue-500 hover:tw-text-white`}
+                        sx={active === item.id?{ backgroundColor: "secondary.main",color:"white" }:{}}
+                        className={` tw-flex tw-h-full tw-items-center tw-cursor-pointer tw-min-w-32 tw-justify-center`}
                         onClick={() => setActive(item.id)}
                     >
                         <EditableText defaultText={item.name} builder={builder} />
                         {builder ? <Delete /> : ""}
-                    </Paper>
+                    </Button>
                 )}
                 {builder ? add : ""}
             </Box> 
-            <Button variant="contained" color="error">Disconnect</Button>
+            <Button variant="contained" color="error">Disconnect<Power /></Button>
 
         </Paper>
     )

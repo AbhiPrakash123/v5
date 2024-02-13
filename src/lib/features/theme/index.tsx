@@ -20,7 +20,7 @@ const lightTheme = createTheme({
             main: '#3b82f6',
         },
         secondary: {
-            main: '#63aaff',
+            main: '#003A75',
         },
     },
 });
@@ -36,7 +36,7 @@ const darkTheme = createTheme({
             main: '#3b82f6',
         },
         secondary: {
-            main: '#63aaff',
+            main: '#003A75',
         },
     },
 });

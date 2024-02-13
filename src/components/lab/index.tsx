@@ -2,6 +2,7 @@ import React from "react"
 import { Box, Paper } from "@mui/material";
 import FeatureBar from "../featurebar";
 import { LabProps } from "./lab";
+import LabInput from "../input";
 
 const Lab: React.FC = (props: LabProps) => {
     const { builder } = props
@@ -14,7 +15,7 @@ const Lab: React.FC = (props: LabProps) => {
                     className="tw-h-full tw-w-64 tw-border-t-0"
                     sx={{ backgroundColor: "background.default" }}
                 >
-                    Inputs
+                    <LabInput />
                 </Paper>
                 <Paper
                     square

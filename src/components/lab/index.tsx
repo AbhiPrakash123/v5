@@ -30,7 +30,7 @@ const Lab: React.FC = (props: LabProps) => {
                     sx={{ backgroundColor: "background.default" }}
 
                 >
-                    CoPilate
+                    Co-Pilot
                 </Paper>
             </Box>
 

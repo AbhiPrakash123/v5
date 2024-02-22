@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from "@mui/material"
 import Sidebar from "@/components/sidebar";
 import Lab from "@/components/lab";
+import BuilderSidebar from "@/components/builderSidebar";
 
 export default function LabBuilder() {
     return (
@@ -16,11 +17,20 @@ export default function LabBuilder() {
                 </Box>
                 <Box className="tw-flex-grow tw-flex tw-flex-col tw-flex-shrink-0">
                     <Box className="tw-h-[64px]">
-                        <Header builder/>
+                        {
+                            // @ts-ignore 
+                            <Header builder />
+                        }
                     </Box>
                     <Box className="tw-flex-grow">
-                        <Lab builder/>
+                        {
+                            // @ts-ignore 
+                            <Lab builder />
+                        }
                     </Box>
+                </Box>
+                <Box >
+                    <BuilderSidebar />
                 </Box>
 
             </Box>

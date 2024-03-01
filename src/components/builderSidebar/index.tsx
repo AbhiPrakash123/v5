@@ -2,7 +2,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { Box, Paper,Button} from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import inputs from '@/livebench';
+import inputs from '@/livebench/inputs';
 import ListComponents from '../listComponents';
 const BuilderSidebar = () => {
     console.log(inputs)
@@ -13,7 +13,7 @@ const BuilderSidebar = () => {
 
     return (
         <Paper
-            className={`tw-h-full tw-m-0 tw-border-t-0 tw-border-l-0 tw-border-b-0 tw-px-2`}
+            className={` tw-w-full tw-h-full tw-m-0 tw-px-2`}
             variant="outlined"
             square
         >

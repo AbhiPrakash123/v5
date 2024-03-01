@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { motion, useAnimation } from 'framer-motion';
-import { Link, Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { LivebenchWhite, LivebenchBlue, TenxerIconBlue } from "../logo";
 import { getTheme } from '@/lib/features/theme/themeSlice'
 import { useAppSelector } from '@/store/hooks'
@@ -83,9 +83,7 @@ const Sidebar: React.FC = () => {
     )
     return (
         <AnimateSidebar
-            className={`tw-h-full tw-m-0 tw-border-t-0 tw-border-l-0 tw-border-b-0`}
-            variant="outlined"
-            square
+            className={`tw-h-full tw-m-0`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             variants={sidebarVariants}

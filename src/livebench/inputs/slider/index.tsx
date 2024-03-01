@@ -27,15 +27,18 @@ function valuetext(value: number) {
 
 export default function LabSlider() {
   return (
-    <Box sx={{ width: 300 }}>
-      <Slider
-        aria-label="Custom marks"
-        defaultValue={20}
-        getAriaValueText={valuetext}
-        step={10}
-        valueLabelDisplay="auto"
-        marks={marks}
-      />
+    <Box className=" tw-w-full" sx={{paddingLeft:"1rem",paddingRight:"1rem"}}>
+      <Box>
+        <Slider
+          aria-label="Custom marks"
+          defaultValue={20}
+          getAriaValueText={valuetext}
+          step={10}
+          valueLabelDisplay="auto"
+          marks={marks}
+        />
+      </Box>
+
     </Box>
   );
 }

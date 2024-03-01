@@ -1,12 +1,12 @@
-import { Paper, Box, Button } from "@mui/material"
+import { Paper, Box, Button, Divider } from "@mui/material"
 import { useState } from "react";
 import { FeatureBarProps } from "./featurebar";
-import { Add, Delete,Power } from "@mui/icons-material";
+import { Add, Delete, Power } from "@mui/icons-material";
 import EditableText from "@/components/editableText";
 
 const FeatureBar = (props: FeatureBarProps) => {
     const { builder } = props
-    const [ active, setActive ] = useState(0)
+    const [active, setActive] = useState(0)
     const [features, setFeatures] = useState([
         { name: "lab 1", id: 0 },
         { name: "lab 2", id: 1 }
@@ -20,30 +20,29 @@ const FeatureBar = (props: FeatureBarProps) => {
         </Button>
     )
     return (
-        <Paper
-            className=" tw-pr-3 tw-h-10 tw-border-t-0 tw-border-l-0 tw-border-r-0 tw-flex tw-justify-between"
-        >
-            {/* <Box>
-
-            </Box> */}
-            <Box className="tw-flex tw-items-center">
-                {features.map((item, i) =>
-                    <Button
-                        variant="outlined"
-                        key={i}
-                        sx={active === item.id?{ backgroundColor: "secondary.main",color:"white" }:{}}
-                        className={` tw-flex tw-h-full tw-items-center tw-cursor-pointer tw-min-w-32 tw-justify-center`}
-                        onClick={() => setActive(item.id)}
-                    >
-                        <EditableText defaultText={item.name} builder={builder} />
-                        {builder ? <Delete /> : ""}
-                    </Button>
-                )}
-                {builder ? add : ""}
-            </Box> 
-            <Button variant="contained" color="error">Disconnect<Power /></Button>
-
-        </Paper>
+        <Box className="tw-h-full">
+            <Box
+                className=" tw-pr-3 tw-h-full tw-border-t-0 tw-border-l-0 tw-border-r-0 tw-flex tw-justify-between"
+            >
+                <Box className="tw-flex tw-items-center">
+                    {features.map((item, i) =>
+                        <Button
+                            variant="outlined"
+                            key={i}
+                            sx={active === item.id ? { backgroundColor: "secondary.main", color: "white" } : {}}
+                            className={` tw-flex tw-h-full tw-items-center tw-cursor-pointer tw-min-w-32 tw-justify-center`}
+                            onClick={() => setActive(item.id)}
+                        >
+                            <EditableText defaultText={item.name} builder={builder} />
+                            {builder ? <Delete /> : ""}
+                        </Button>
+                    )}
+                    {builder ? add : ""}
+                </Box>
+                <Button variant="contained" color="error">Disconnect<Power /></Button>
+            </Box>
+            <Divider />
+        </Box>
     )
 }
 export default FeatureBar;

@@ -1,7 +1,7 @@
-import LabButton from "./inputs/button"
-import LabSlider from "./inputs/slider"
-import LabSwitch from "./inputs/switch"
-
+import LabButton from "./button"
+import LabSlider from "./slider"
+import LabSwitch from "./switch"
+import BasicSelect from "./select"
 export interface ElementType {
     name: string,
     uname: string,
@@ -26,6 +26,12 @@ const inputs: ElementType[] = [
         uname: "lab-slider-default",
         type:"slider",
         element: LabSlider
+    },
+    {
+        name: "select",
+        uname: "lab-select-default",
+        type:"select",
+        element: BasicSelect
     }
 ]
 export default inputs

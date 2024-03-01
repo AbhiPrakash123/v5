@@ -13,8 +13,8 @@ const lightTheme = createTheme({
     palette: {
         mode: 'light',
         background: {
-            default: '#ececec',
-            paper: "#FFF"
+            default: '#FFF',
+            paper: "#ececec"
         },
         primary: {
             main: '#3b82f6',
@@ -47,6 +47,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const themeType = useAppSelector(getTheme)
     const theme: Theme = themeType === 'dark' ? darkTheme : lightTheme
     // console.log("create new theme")
+    document.documentElement.style.setProperty('--main-primary', theme.palette.primary.main);
 
     return <TM theme={theme}>
         <CssBaseline />

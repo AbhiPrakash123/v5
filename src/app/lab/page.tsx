@@ -14,11 +14,11 @@ export default function Livebench() {
                 <Box >
                     <Sidebar />
                 </Box>
-                <Box className="tw-flex-grow tw-flex tw-flex-col tw-flex-shrink-0">
-                    <Box className="tw-h-[64px]">
+                <Box className="tw-flex-grow tw-flex tw-flex-col">
+                    <Box className="tw-h-[7%]">
                         <Header />
                     </Box>
-                    <Box className="tw-flex-grow">
+                    <Box className="tw-h-[93%]">
                         <Lab />
                     </Box>
                 </Box>

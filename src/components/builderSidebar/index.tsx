@@ -7,13 +7,13 @@ import ListComponents from '../listComponents';
 const BuilderSidebar = () => {
     console.log(inputs)
     const tabs = [
-        {name:'components',icon:<AppsIcon />},
-        {name:'edit',icon:<EditNoteIcon />},
+        {name:'inputs',icon:<AppsIcon />},
+        {name:'outputs',icon:<EditNoteIcon />},
     ]
 
     return (
         <Paper
-            className={` tw-w-full tw-h-full tw-m-0 tw-px-2`}
+            className={`tw-h-full tw-m-0 tw-px-2`}
             variant="outlined"
             square
         >

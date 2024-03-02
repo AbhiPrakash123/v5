@@ -4,6 +4,7 @@ import FeatureBar from "../featurebar";
 import { LabProps } from "./lab";
 import LabInput from "../input";
 import LabTable from "@/livebench/outputs/table";
+import OutputBuilder from "../output";
 const Lab: React.FC = (props: LabProps) => {
     const { builder } = props
     return (
@@ -24,7 +25,7 @@ const Lab: React.FC = (props: LabProps) => {
                 <Box
                     className="tw-h-ful tw-flex-grow tw-border-t-0"
                 >
-                    <LabTable />
+                    <OutputBuilder />
                 </Box>
                 <Divider
                     className="tw-h-full"

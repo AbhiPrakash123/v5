@@ -12,13 +12,14 @@ export default function LabBuilder() {
         <ThemeProvider>
             <CssBaseline />
             <Box className="tw-h-dvh tw-w-dvw tw-flex tw-flex-row tw-flex-shrink-0" >
-                <Box >
+                <Box className=" tw-h-full tw-flex">
                     <Sidebar />
+                    <Divider
+                        className="tw-h-full"
+                        orientation="vertical"
+                    />
                 </Box>
-                <Divider
-                    className="tw-h-full"
-                    orientation="vertical"
-                />
+
 
                 <Box className="tw-flex-grow tw-flex tw-flex-col">
                     <Box className="tw-h-[7%]">
@@ -38,6 +39,7 @@ export default function LabBuilder() {
                     <BuilderSidebar />
                 </Box>
             </Box>
+
         </ThemeProvider>
 
     )

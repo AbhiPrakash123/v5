@@ -46,8 +46,6 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     const themeType = useAppSelector(getTheme)
     const theme: Theme = themeType === 'dark' ? darkTheme : lightTheme
-    // console.log("create new theme")
-    document.documentElement.style.setProperty('--main-primary', theme.palette.primary.main);
 
     return <TM theme={theme}>
         <CssBaseline />

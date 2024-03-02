@@ -3,7 +3,7 @@ import { Box, Paper,Button} from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import inputs from '@/livebench/inputs';
-import ListComponents from '../listComponents';
+import ListComponents from './listComponents';
 const BuilderSidebar = () => {
     console.log(inputs)
     const tabs = [

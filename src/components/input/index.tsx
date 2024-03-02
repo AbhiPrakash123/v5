@@ -12,15 +12,24 @@ const LabInput = () => {
 
     const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
+        if(draggedElement === null) return
+
+        // @ts-ignore
         e.target.style.border = '1px solid red'
     };
     const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
+        if(draggedElement === null) return
+
+        // @ts-ignore
         e.target.style.border = 'none'
     }
 
     const handleDrop = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
+        if(draggedElement === null) return
+
+        // @ts-ignore
         e.target.style.border = 'none'
         dispatch(addElement(draggedElement))
     };

@@ -39,7 +39,7 @@ const LabInput = () => {
             onDragOver={(e) => handleDragOver(e)}
             onDragLeave={(e) => handleDragLeave(e)}
             onDrop={(e) => handleDrop(e)}
-            className=" tw-h-full tw-w-full tw-overflow-y-auto tw-p-2"
+            className=" tw-h-full tw-w-full tw-overflow-y-auto tw-px-4"
         >
             {
                 allInputs.map((item:any, _id:number) => {

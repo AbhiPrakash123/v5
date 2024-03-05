@@ -18,7 +18,7 @@ const InputRow = (props: any) => {
     }
     return (
         <Box
-            className=" tw-w-full tw-my-2"
+            className=" tw-w-full tw-my-2 tw-min-h-[50px]"
             sx={defaultFlex}
         >
             {element()}

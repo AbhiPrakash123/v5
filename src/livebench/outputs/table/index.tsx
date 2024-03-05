@@ -27,9 +27,9 @@ const rows = [
 
 export default function LabTable() {
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableBody>
+    <TableContainer component={Paper} style={{height: "100%"}}>
+      <Table aria-label="simple table" className=' tw-h-full tw-w-full'>
+        <TableBody >
           {rows.map((row) => (
             <TableRow
               key={row.name}

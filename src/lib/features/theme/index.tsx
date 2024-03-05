@@ -13,8 +13,8 @@ const lightTheme = createTheme({
     palette: {
         mode: 'light',
         background: {
-            default: '#FFF',
-            paper: "#ececec"
+            default: "rgba(59, 130, 246, 0.03)",
+            paper:  '#FFF' //"#ececec"
         },
         primary: {
             main: '#3b82f6',

@@ -2,27 +2,29 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface OutputBuilder {
     data: any,
-    draggedElement: null
+    draggedElement: null,
+    breakpoint: "lg" | "md" | "sm"
 }
 
 export const outputBuilderSlice = createSlice({
     name: "outputBuilder",
     initialState: {
         data: [],
-        draggedElement: null
+        draggedElement: null,
+        breakpoint: "lg"
     } as OutputBuilder,
     reducers: {
         addElement(state, { payload }) {
-            const data:any = {
-                uname: payload
-            }
-            state.data = [...state.data, data]
+            state.data = [...state.data, payload]
         },
         deleteElement(state, { payload }) {
             state.data = []
         },
         setDraggedOutputElement(state,{ payload }){
             state.draggedElement = payload
+        },
+        setBreakpoint(state, { payload }){
+            state.breakpoint = payload
         }
     }
 

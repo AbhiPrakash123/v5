@@ -1,5 +1,6 @@
 
 import LabTable from "./table"
+import BasicLineChart from "./lineGraph"
 export interface ElementType {
     name: string,
     uname: string,
@@ -12,6 +13,12 @@ const outputs: ElementType[] = [
         uname: "lab-table-default",
         type: "table",
         element: LabTable
+    },
+    {
+        name: "Line Graph",
+        uname: "lab-line-graph-default",
+        type: "charts",
+        element: BasicLineChart
     }
 ]
 export default outputs

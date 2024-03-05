@@ -1,35 +1,37 @@
-import { motion, useAnimation } from 'framer-motion';
-import { Box, Paper,Button} from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import CloseIcon from '@mui/icons-material/Close';
 import inputs from '@/livebench/inputs';
 import ListComponents from './listComponents';
-const BuilderSidebar = () => {
-    console.log(inputs)
-    const tabs = [
-        {name:'inputs',icon:<AppsIcon />},
-        {name:'outputs',icon:<EditNoteIcon />},
-    ]
+import { useState } from 'react';
+import Slide from '@mui/material/Slide';
+import { open, toggle, isOpen } from "./buidlerSidebarSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
+
+const BuilderSidebar = () => {
+    const dispatch = useAppDispatch()
+    // const [open, setOpen] = useState(true)
+    const open = useAppSelector(isOpen)
+    
     return (
-        <Paper
-            className={`tw-h-full tw-m-0 tw-px-2`}
-            variant="outlined"
-            square
-        >
-            <ul 
-            className="tw-p-0 tw-m-0 tw-list-none tw-h-16 tw-flex tw-items-center"
+        <Slide direction="left" in={open} mountOnEnter unmountOnExit>
+            <Paper
+                className={`tw-fixed tw-h-dvh tw-right-0 tw-m-0 tw-px-2 tw-flex tw-flex-col tw-flex-shrink-0`}
             >
-                {
-                    tabs.map((item,i) => {
-                        return <li key={i} className=' tw-flex tw-items-center tw-justify-center tw-gap-2 tw-min-w-32 tw-p-2 tw-cursor-pointer'>{item.icon}{item.name}</li>
-                    })
-                }
-            </ul>
-            <Box>
-                <ListComponents />
-            </Box>
-        </Paper >
+                <Box className="tw-flex tw-justify-between tw-items-center" style={{height:"64px"}}>
+                    <Typography component="span">
+                        Elements
+                    </Typography>
+                    <CloseIcon className='tw-cursor-pointer' onClick={() => dispatch(toggle())} />
+                </Box>
+                <Box className=" tw-flex-grow tw-overflow-y-auto">
+                    <ListComponents />
+                </Box>
+            </Paper >
+        </Slide>
+
     )
 }
 

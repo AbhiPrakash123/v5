@@ -9,10 +9,10 @@ const Lab: React.FC = (props: LabProps) => {
     const { builder } = props
     return (
         <Box className=" tw-h-full tw-w-full tw-flex tw-flex-col tw-p-0 tw-m-0 ">
-            <Box className="tw-h-[5%]">
+            {/* <Box className="tw-h-[5%]">
                 <FeatureBar builder={builder} />
-            </Box>
-            <Box className="tw-h-[95%] tw-flex tw-flex-shrink-0 tw-w-full tw-border-0 tw-p-0">
+            </Box> */}
+            <Box className="tw-h-[100%] tw-flex tw-flex-shrink-0 tw-w-full tw-border-0 tw-p-0">
                 <Box
                     className="tw-h-full tw-w-64 tw-border-t-0"
                 >

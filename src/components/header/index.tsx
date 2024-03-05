@@ -1,13 +1,14 @@
 "use client"
-import { LightMode,DarkMode } from '@mui/icons-material';
-import { getTheme, toggleTheme } from '@/lib/features/theme/themeSlice'
+import { LightMode,DarkMode,Power } from '@mui/icons-material';
+import { getTheme, toggleTheme } from '@/lib/features/theme/themeSlice';
 import { Avatar, Paper,Button } from '@mui/material';
 import { HeaderProps } from './header';
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import EditableText from '@/components/editableText';
+import { toggle } from '../builderSidebar/buidlerSidebarSlice';
 
 const Header: React.FC = (props: HeaderProps) => {
-
+    
     const { builder } = props
     const theme = useAppSelector(getTheme)
     const dispatch = useAppDispatch()
@@ -20,6 +21,8 @@ const Header: React.FC = (props: HeaderProps) => {
                 </div>
                 <div className='tw-flex tw-flex-row tw-justify-between tw-items-center tw-gap-4'>
                     {builder?<Button variant='outlined'>save</Button>:""}
+                    {builder?<Button variant='outlined' onClick={() => dispatch(toggle())}>add element</Button>:""}
+                    <Button variant="contained" color="error">Disconnect<Power /></Button>
                     <div className=' tw-cursor-pointer' onClick={() => dispatch(toggleTheme())}>
                         {
                             theme === 'dark' ? <DarkMode /> : <LightMode />

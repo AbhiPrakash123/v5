@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { motion, useAnimation } from 'framer-motion';
-import { Box, Paper } from "@mui/material";
+import { Box, Paper,Divider } from "@mui/material";
 import { LivebenchWhite, LivebenchBlue, TenxerIconBlue } from "../logo";
 import { getTheme } from '@/lib/features/theme/themeSlice'
 import { useAppSelector } from '@/store/hooks'
@@ -83,16 +83,20 @@ const Sidebar: React.FC = () => {
     )
     return (
         <AnimateSidebar
-            className={`tw-h-full tw-m-0`}
+            className={`tw-h-full tw-m-0 tw-border-0`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             variants={sidebarVariants}
             animate={controls}
             initial="closed"
+            variant="outlined"
+            square
         >
-            <Paper variant="outlined" square className=" tw-border-r-0 tw-border-l-0 tw-border-t-0 tw-w-full tw-h-[64px] tw-m-0 tw-flex tw-flex-row tw-justify-between tw-items-center">
+            <Box className="tw-w-full tw-h-[64px] tw-m-0 tw-flex tw-flex-row tw-justify-between tw-items-center">
                 {open ? livebenchLogo : <TenxerIconBlue />}
-            </Paper>
+                
+            </Box>
+            <Divider />
 
             <ul className="tw-flex tw-flex-col tw-p-0 tw-m-0">
                 {sidebarData.map((item, i) => {

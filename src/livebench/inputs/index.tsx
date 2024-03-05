@@ -32,6 +32,12 @@ const inputs: ElementType[] = [
         uname: "lab-select-default",
         type:"select",
         element: BasicSelect
+    },
+    {
+        name: "select",
+        uname: "lab-select-default",
+        type:"select",
+        element: BasicSelect
     }
 ]
 export default inputs

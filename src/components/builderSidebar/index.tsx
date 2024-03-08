@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography, Divider } from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import CloseIcon from '@mui/icons-material/Close';
@@ -14,19 +14,23 @@ const BuilderSidebar = () => {
     const dispatch = useAppDispatch()
     // const [open, setOpen] = useState(true)
     const open = useAppSelector(isOpen)
-    
+
     return (
         <Slide direction="left" in={open} mountOnEnter unmountOnExit>
             <Paper
-                className={`tw-fixed tw-h-dvh tw-right-0 tw-m-0 tw-px-2 tw-flex tw-flex-col tw-flex-shrink-0`}
+                className={`tw-w-dvw sm:tw-w-[350px] tw-fixed tw-h-dvh tw-right-0 tw-m-0 tw-px-2 tw-flex tw-flex-col `}
             >
-                <Box className="tw-flex tw-justify-between tw-items-center" style={{height:"64px"}}>
-                    <Typography component="span">
-                        Elements
-                    </Typography>
-                    <CloseIcon className='tw-cursor-pointer' onClick={() => dispatch(toggle())} />
+                <Box className=" tw-w-full tw-h-[64px] tw-flex tw-flex-col tw-justify-between tw-flex-shrink-0">
+                    <Box className=" tw-h-full tw-flex tw-justify-between tw-items-center ">
+                        <Typography component="span">
+                            Elements
+                        </Typography>
+                        <CloseIcon className='tw-cursor-pointer' onClick={() => dispatch(toggle())} />
+                    </Box>
+                    <Divider flexItem />
                 </Box>
-                <Box className=" tw-flex-grow tw-overflow-y-auto">
+
+                <Box className=" tw-w-full tw-flex-grow tw-overflow-y-auto">
                     <ListComponents />
                 </Box>
             </Paper >

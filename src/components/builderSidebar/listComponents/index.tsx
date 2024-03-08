@@ -70,7 +70,7 @@ const RenderElements = (props: renderElmentType) => {
                             </Typography>
                             <Divider />
                         </Box>
-                        <Box className=" tw-flex-grow tw-pointer-events-none tw-w-full tw-h-[200px]">
+                        <Box className=" tw-flex-grow tw-flex tw-flex-col tw-justify-center tw-pointer-events-none tw-w-full tw-h-[150px]">
                             {item.element()}
                         </Box>
                     </Paper>
@@ -90,7 +90,8 @@ const ListComponents = () => {
     const dispatch = useAppDispatch()
 
     const handleInputDragStart = (item: any) => {
-        dispatch(setDraggedInputElement(item.uname))
+        const { uname, configuration } = item
+        dispatch(setDraggedInputElement({ uname, configuration }))
     };
     const handleInputDragEnd = () => {
         dispatch(setDraggedInputElement(null))
@@ -105,7 +106,7 @@ const ListComponents = () => {
 
 
     return (
-        <Box className=" tw-h-full tw-w-[350px] ">
+        <Box className=" tw-h-full tw-w-full">
             <Box sx={{ width: '100%' }} className="tw-flex tw-flex-col tw-flex-shrink-0 tw-h-full tw-gap-2">
                 <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
                     <Tabs value={value} onChange={handleChange} aria-label="tabs for elements">

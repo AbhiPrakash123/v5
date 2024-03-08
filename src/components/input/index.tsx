@@ -4,8 +4,10 @@ import { getDraggedElement, addElement, deleteElement, getInputs } from './input
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { Box } from "@mui/material"
 import InputRow from './inputRow';
+import { InputPropsType } from './input';
 
-const LabInput = () => {
+const LabInput = (props:InputPropsType) => {
+    const {builder} = props
     const draggedElement = useAppSelector(getDraggedElement)
     const allInputs = useAppSelector(getInputs)
     const dispatch = useAppDispatch()
@@ -33,19 +35,19 @@ const LabInput = () => {
         e.target.style.border = 'none'
         dispatch(addElement(draggedElement))
     };
-    console.log(allInputs)
     return (
         <Box
             onDragOver={(e) => handleDragOver(e)}
             onDragLeave={(e) => handleDragLeave(e)}
             onDrop={(e) => handleDrop(e)}
-            className=" tw-h-full tw-w-full tw-overflow-y-auto tw-px-4"
+            className=" tw-h-full tw-w-full tw-overflow-y-auto tw-relative tw-flex tw-flex-col tw-gap-2"
         >
             {
                 allInputs.map((item:any, _id:number) => {
-                    return <InputRow key={_id} item={item} />
+                    return <InputRow key={_id} item={item} builder={builder}/>
                 })
             }
+            
         </Box>
     )
 }

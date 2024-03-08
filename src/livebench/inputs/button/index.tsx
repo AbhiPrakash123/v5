@@ -1,7 +1,37 @@
-import { Button } from "@mui/material"
+import { Button} from "@mui/material"
+import { Settings } from "./settings"
+interface Config {
+    value: string,
+    event: string,
+    variant: "contained" | "text" | "outlined",
+    type: "submit" | "trigger",
+}
+interface ButtonProps {
+    configuration?: Config
+}
 
-export default function LabButton(){
+const configuration = {
+    value: "button",
+    event: "",
+    variant: "contained",
+    type: "submit",
+}
+
+
+
+export default function LabButton(props: ButtonProps) {
+    const config = props?.configuration ? props.configuration : configuration
+
     return (
-        <Button variant="contained">Contained</Button>
+        <>
+            {
+                // @ts-ignore
+                <Button className=" tw-w-full" variant={`${config.variant}`}>{config.value}</Button>
+            }
+
+        </>
     )
 }
+
+
+export { LabButton as element, configuration, Settings }

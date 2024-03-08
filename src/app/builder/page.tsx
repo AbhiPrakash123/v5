@@ -6,7 +6,7 @@ import { Box, Divider } from "@mui/material"
 import Sidebar from "@/components/sidebar";
 import Lab from "@/components/lab";
 import BuilderSidebar from "@/components/builderSidebar";
-
+import EditorSidebar from "@/components/editorSidebar"; 
 export default function LabBuilder() {
     return (
         <ThemeProvider>
@@ -35,9 +35,8 @@ export default function LabBuilder() {
                         }
                     </Box>
                 </Box>
-                <Box className="" >
-                    <BuilderSidebar />
-                </Box>
+                <BuilderSidebar />
+                <EditorSidebar />
             </Box>
 
         </ThemeProvider>

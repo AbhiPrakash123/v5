@@ -1,9 +1,8 @@
 import React from "react"
 import { Box, Paper, Divider } from "@mui/material";
-import FeatureBar from "../featurebar";
+// import FeatureBar from "../featurebar";
 import { LabProps } from "./lab";
 import LabInput from "../input";
-import LabTable from "@/livebench/outputs/table";
 import OutputBuilder from "../output";
 const Lab: React.FC = (props: LabProps) => {
     const { builder } = props
@@ -12,7 +11,7 @@ const Lab: React.FC = (props: LabProps) => {
             {
             /* 
             <Box className="tw-h-[5%]">
-            <FeatureBar builder={builder} />
+                <FeatureBar builder={builder} />
             </Box> 
             */
             }
@@ -20,7 +19,7 @@ const Lab: React.FC = (props: LabProps) => {
                 <Box
                     className="tw-h-full tw-w-64"
                 >
-                    <LabInput />
+                    <LabInput builder={builder}/>
                 </Box>
                 <Divider
                     className="tw-h-full"
@@ -34,16 +33,13 @@ const Lab: React.FC = (props: LabProps) => {
                 <Divider
                     className="tw-h-full"
                     orientation="vertical"
-                    
                 />
                 <Box
                     className="tw-h-full tw-w-64"
-
                 >
                     Co-Pilot
                 </Box>
             </Box>
-
         </Box>
     )
 }

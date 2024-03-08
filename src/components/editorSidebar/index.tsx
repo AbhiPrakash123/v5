@@ -36,7 +36,7 @@ const EditorSidebar = () => {
                     <Divider flexItem />
                 </Box>
 
-                <Box className=" tw-flex-grow tw-overflow-y-auto">
+                <Box className=" tw-flex-grow tw-overflow-y-auto tw-p-3">
                     {editingInputElement ? <Setting uuid={elementUUID} configuration={editingInputElement.configuration} /> : ""}
                     <Button
                         color="error"

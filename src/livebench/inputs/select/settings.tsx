@@ -4,6 +4,8 @@ import { Delete, Add } from "@mui/icons-material"
 import { useAppDispatch } from "@/store/hooks"
 import { updateElementConfiguration } from "@/components/input/inputBuilderSlice"
 import { useState } from "react"
+import { EditorTextbox } from '@/components/editorSidebar/editorTextbox';
+
 const Settings = ({ uuid, configuration }: any) => {
     const [ name, setName ] = useState("")
     const [ value, setValue ] = useState("")
@@ -23,13 +25,16 @@ const Settings = ({ uuid, configuration }: any) => {
         const config = { ...configuration, ['options']: configuration.options.filter((item:any,index: number) => index !== indexID)}
         dispatch(updateElementConfiguration({ uuid, configuration: config }))
     }
+    const updateValue = (event: any) => {
+        const config = { ...configuration, [event.target.name]: event.target.value }
+        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+    }
 
 
     return (
         <>
-            <Editor uuid={uuid} configuration={configuration} >
-
-            </Editor>
+            <Editor uuid={uuid} configuration={configuration} />
+            <EditorTextbox name="lable" value={configuration.lable} callback={updateValue} />
             <Box className=" tw-w-full tw-flex tw-flex-col tw-gap-3 tw-py-3">
                 <Box className=" tw-w-full tw-flex ">
                     <Box sx={{ flex: "1 1 0" }}>Options</Box>

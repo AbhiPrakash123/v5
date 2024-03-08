@@ -2,7 +2,7 @@ import { Box, Typography, TextField } from "@mui/material"
 const EditorTextbox = ({ name, value, callback, disable }: any) => {
 
     return (
-        <Box className=" tw-w-full tw-flex tw-justify-center tw-items-center">
+        <Box className=" tw-w-full tw-flex tw-justify-center tw-items-center tw-my-2">
             {
                 name ?
                     <Typography

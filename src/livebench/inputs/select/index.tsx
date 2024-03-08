@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import {Box,Typography} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -7,6 +7,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Settings } from './settings';
 interface Config {
   value: string,
+  lable: string,
   options:Array<any>,
   event: string,
   variant: "contained" | "text" | "outlined",
@@ -18,6 +19,7 @@ interface SelectProps {
 
 const configuration = {
   value: "",
+  lable: "title",
   options: [],
   event: "",
   variant: "contained",
@@ -33,9 +35,9 @@ export default function BasicSelect(props:SelectProps) {
   };
 
   return (
-    <Box className=" tw-w-full tw-h-full tw-flex tw-items-center tw-flex-shrink-0 ">
-      <Box>lable</Box>
-      <FormControl size="small" className=' tw-flex-grow'>
+    <Box className=" tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center">
+      {config.lable?<Typography className=' tw-w-full'>{config.lable}</Typography>:""}
+      <FormControl className=' tw-w-full' size="small">
         <Select
           // labelId="demo-simple-select-label"
           // id="demo-simple-select"

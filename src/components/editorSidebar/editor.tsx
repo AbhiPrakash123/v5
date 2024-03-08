@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import { useAppDispatch } from "@/store/hooks"
 import { updateElementConfiguration, deleteElement } from "@/components/input/inputBuilderSlice"
-import { EditorTextbox } from "@/components/editorSidebar/editorRow"
+import { EditorTextbox } from "@/components/editorSidebar/editorTextbox"
 
 const Editor = ({ uuid, configuration }: any) => {
 
@@ -13,7 +13,7 @@ const Editor = ({ uuid, configuration }: any) => {
         dispatch(updateElementConfiguration({ uuid, configuration: config }))
     }
     return (
-        <Box className=" tw-flex tw-flex-col tw-gap-3">
+        <Box className=" tw-flex tw-flex-col">
             <EditorTextbox name={"value"} value={configuration.value} callback={updateValue} />
             <EditorTextbox name={"event"} value={configuration.event} callback={updateValue} />
             <EditorTextbox value={uuid} disable/>

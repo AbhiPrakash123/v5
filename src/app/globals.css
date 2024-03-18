@@ -10,11 +10,25 @@ body {
   width: 100dvw;
 }
 
-.react-grid-placeholder {
+/* .react-grid-placeholder {
   border: 1px dashed rgb(73, 73, 73);
   content: none;
   background: rgba(112, 112, 112, 0.26);
 }
+
+.react-terminal {
+  flex-wrap: wrap;
+  overflow:hidden;
+  width: 100%;
+
+}
+
+.react-terminal-input {
+  white-space: pre;
+  overflow-wrap: break-word;
+  width: 100%;
+  overflow: hidden;
+} */
 
 ::-webkit-scrollbar {
   width: 4px;

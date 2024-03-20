@@ -2,81 +2,146 @@
 import { Terminal } from 'xterm'
 import { WebLinksAddon } from "xterm-addon-web-links";
 import { FitAddon } from "xterm-addon-fit";
-
-import { useEffect, useRef } from 'react'
-// import "./style.css"
+import { Paper } from '@mui/material';
+import { useEffect, useState, useRef } from 'react'
+import "./style.css"
 import 'xterm/css/xterm.css'
 
+const terminalBlackTheme = {
+    foreground: '#ffffff', // White foreground color
+    background: '#222222', // Dark gray background color
+    cursor: '#00ff00', // Green cursor color
+    // ... (other theme properties)
+}
 function LabTerminal(props: any) {
     const divRef = useRef(null);
+    const history: any = useRef([]);
+    const historyIndex = useRef(0);
+    const line = useRef("");
+    const [fitAddon, setFitAddon] = useState(new FitAddon())
+    const [terminal, setTerminal] = useState(new Terminal({
+        rendererType: "canvas",
+        convertEol: true,
+        cursorBlink: true,
+        cursorStyle: "block",
+        theme: terminalBlackTheme,
 
-    const initTerminal = () => {
-        if(divRef.current.childNodes.length !== 0) return
-        console.log("TERMINAL =", divRef.current.childNodes.length)
-        // if(divRef !== null) return
-        const term = new Terminal({
-            rendererType: "canvas",
-            convertEol: true,
-            cursorBlink: true,
-            cursorStyle: "block",
+    }))
 
-        });
-        term.reset()
-        const webLinksAddon = new WebLinksAddon();
-        const fitAddon = new FitAddon();
-        term.loadAddon(webLinksAddon);
-        term.loadAddon(fitAddon);
+    useEffect(() => {
         // @ts-ignore
-        term.open(divRef.current);
+        if (divRef.current.childNodes.length !== 0) return
+
+        terminal.reset()
+        terminal.clear()
+        const webLinksAddon = new WebLinksAddon();
+        // const fitAddon = new FitAddon();
+        terminal.loadAddon(webLinksAddon);
+        terminal.loadAddon(fitAddon);
+        // @ts-ignore
+        terminal.open(divRef.current);
         fitAddon.fit();
-        term.write("$> ");
-        term.onKey(({ key, domEvent }) => {
-            console.log([key.charCodeAt(0)])
-            term.write(key);
+        terminal.write("$> ");
 
-            if (key.charCodeAt(0) === 13) {
-                term.write("\r\n$> ");
+        const resizeObserver = new ResizeObserver(() => fitAddon.fit());
+        // @ts-ignore
+        resizeObserver.observe(divRef.current);
+
+        terminal.onKey(({ key, domEvent }) => {
+            console.log([domEvent.code])
+            if (key === '\x03') { // CTRL + C
+                terminal.writeln('C^');
+                line.current = ""
+                terminal.write('$> ');
+            } else {
+                switch (domEvent.code) {
+                    case 'Enter': // pressed Enter
+                        // const input: any = terminal.getSelection().trimEnd();
+                        if (history.current.length === 0) history.current.push(line.current)
+                        else if (history.current[history.current.length - 1] !== line.current) history.current.push(line.current)
+                        else if (line.current.length !== 0) history.current.push(line.current)
+                        switch (line.current) {
+                            case 'clear':
+                                terminal.clear()
+                                break;
+                            case 'history':
+                                terminal.writeln('');
+                                for (var cmd in history.current) {
+                                    terminal.writeln(history.current[cmd]);
+                                }
+                        }
+                        line.current = ""
+                        terminal.write('\r\n$> ');
+                        historyIndex.current = history.current.length
+                        console.log(history.current)
+                        break;
+                    case "ArrowUp": // pressed up arraow
+                        if (historyIndex.current > 0) {
+                            historyIndex.current = historyIndex.current - 1;
+                            line.current = history.current[historyIndex.current] || ''
+                            terminal.write(`\r$> \x1b[K${line.current}`);
+
+                        }
+                        break;
+                    case "ArrowDown": // pressed down arraow
+                        if (historyIndex.current < history.current.length) {
+                            historyIndex.current = historyIndex.current + 1;
+                            line.current = history.current[historyIndex.current] || ''
+                            terminal.write(`\r$> \x1b[K${line.current}`);
+                        }
+                        break;
+                    case "ArrowLeft": // pressed down arraow
+                        if (historyIndex.current < history.current.length) {
+                            terminal.write(`\r$> \x1b[K${line.current}`);
+                        }
+                        break;
+                    case "ArrowRight": // pressed down arraow
+                        if (historyIndex.current < history.current.length) {
+                            terminal.write(`\r$> \x1b[K${line.current}`);
+                        }
+                        break;
+                    case "Backspace":
+                        terminal.write('\b \b');
+                        line.current = line.current.slice(0, -1)
+                        break;
+                    default:
+                        line.current = line.current + key
+                        terminal.write(key);
+                        // terminal.write(`\r$> ${line.current}`);
+                        console.log([line, key])
+                        break;
+
+                }
             }
-        });
 
-        // term.textarea.onkeypress = function (e) {
-        //     console.log(e);
-        //     term.write(String.fromCharCode(e.keyCode));
-        // };
-    };
+
+
+        })
+
+        return () => {
+            // terminal.dispose()
+            // resizeObserver.disconnect();
+        }
+    }, [])
+    const resize = () => {
+        fitAddon.fit();
+    }
 
     return (
         <>
-            <button onClick={() => initTerminal()}>ADD TERMINAL</button>
-            <div
-                style={{ }}
-                ref={divRef}
-                id="terminal"
-            />
+            <div className=' tw-p-0 tw-m-0 tw-h-full tw-w-full'>
+                <div
+
+                    style={{ width: "100%", height: "100%" }}
+                    ref={divRef}
+                    id="terminal"
+                />
+
+            </div>
+
         </>
 
     );
-};
-
-// export default TerminalComponent
-// import * as React from 'react'
-// import { XTerm } from 'xterm-for-react'
-
-// const LabTerminal = () => {
-//     const xtermRef = React.useRef(null)
-
-//     React.useEffect(() => {
-//         // You can call any method in XTerm.js by using 'xterm xtermRef.current.terminal.[What you want to call]
-//         // @ts-ignore
-//         xtermRef.current.terminal.writeln("Hello, World!\r\n")
-//         // @ts-ignore
-//         xtermRef.current.terminal.writeln("Hello, World!")
-//     }, [])
-
-//     return (
-//         // Create a new terminal and set it's ref.
-//         <XTerm ref={xtermRef} />
-//     )
-// }
+}
 
 export default LabTerminal

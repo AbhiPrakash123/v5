@@ -82,8 +82,11 @@ export default function OutputBuilder() {
         event.stopPropagation()
         setLayout((prev) => prev.filter((item => item.id !== id)))
     }
+    // const onResize = (item:any,item2:any) => {
+    //     console.log("resize->",item2)
+    // }
     // 
-    const resizeH = <div className=' tw-absolute tw-right-0 tw-bottom-0 tw-cursor-se-resize -tw-rotate-45' >
+    const resizeH = <div className=' tw-absolute tw-right-0 tw-bottom-0 tw-cursor-se-resize -tw-rotate-45 tw-z-50' >
         <FilterList />
     </div>
     return (
@@ -115,6 +118,7 @@ export default function OutputBuilder() {
                                 data-grid={item}
                                 variant='outlined'
                                 className=' tw-flex tw-flex-col tw-flex-shrink-0'
+                                
                             >
                                 <Box>
                                     <Box className=" tw-flex tw-gap-2 tw-p-2">
@@ -126,9 +130,10 @@ export default function OutputBuilder() {
                                     </Box>
                                     <Divider />
                                 </Box>
-                                <Box className=" tw-flex-grow tw-overflow-auto">
+                                <Box 
+                                
+                                className=" tw-flex-grow tw-overflow-auto">
                                     <OutputContainer item={item} />
-
                                 </Box>
                             </Paper>
                         ))}

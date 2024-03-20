@@ -10,11 +10,13 @@ body {
   width: 100dvw;
 }
 
-/* .react-grid-placeholder {
+.react-grid-placeholder {
   border: 1px dashed rgb(73, 73, 73);
   content: none;
   background: rgba(112, 112, 112, 0.26);
 }
+
+/* 
 
 .react-terminal {
   flex-wrap: wrap;

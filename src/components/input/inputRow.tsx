@@ -53,7 +53,7 @@ const InputRow = (props: InputRowPropsType) => {
     } else {
         rowElement = (
             <Box
-                className=" tw-w-full tw-my-2 tw-min-h-[50px] tw-relative"
+                className=" tw-w-full tw-px-2 tw-my-2 tw-min-h-[50px] tw-relative"
                 sx={defaultFlex}
             >
                 {<Element configuration={item.configuration}/>}

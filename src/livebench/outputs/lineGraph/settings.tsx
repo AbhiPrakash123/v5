@@ -36,7 +36,7 @@ const Settings = ({ uuid, configuration }: any) => {
             <Box className=" tw-w-full tw-flex tw-flex-col tw-gap-3 ">
                 {configuration.lines.map((item: any,index:number) => {
                     return (
-                        <EditorTextbox value={item.label} callback={(event:any)=>updateLine(event,index)} />
+                        <EditorTextbox key={index} value={item.label} callback={(event:any)=>updateLine(event,index)} />
                     )
                 })}
             </Box>

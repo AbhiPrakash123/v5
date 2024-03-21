@@ -1,7 +1,14 @@
 
 import LabTable from "./table"
 import * as LineGraph from "./lineGraph"
-import * as LabTerminal from "./terminal"
+// import * as LabTerminal from "./terminal"
+import dynamic from 'next/dynamic'
+import { Settings } from "./terminal/settings"
+import { configuration } from "./terminal/configuration"
+const LabTerminal = dynamic(() => import('@/livebench/outputs/terminal'), {
+    ssr: false
+})
+
 export interface ElementType {
     name: string,
     uname: string,
@@ -21,9 +28,9 @@ const outputs: any = [
         name: "terminal",
         uname: "terminal",
         type: "terminal",
-        configuration: LabTerminal.configuration,
-        element: LabTerminal.element,
-        settings: LabTerminal.Settings
+        configuration: configuration,
+        element: LabTerminal,
+        settings: Settings
     },
     // {
     //     name: "table",

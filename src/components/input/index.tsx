@@ -10,6 +10,7 @@ const LabInput = (props:InputPropsType) => {
     const {builder} = props
     const draggedElement = useAppSelector(getDraggedElement)
     const allInputs = useAppSelector(getInputs)
+    console.log(allInputs)
     const dispatch = useAppDispatch()
 
     const handleDragOver = (e: DragEvent<HTMLDivElement>) => {

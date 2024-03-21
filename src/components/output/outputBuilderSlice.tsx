@@ -17,6 +17,9 @@ export const outputBuilderSlice = createSlice({
         addElement(state, { payload }) {
             state.data = [...state.data, payload]
         },
+        setOutput(state,{ payload }){
+            state.data = payload
+        },
         updateElementConfiguration(state, { payload }) {
             state.data = state.data.map((item:any) => {
                 if(item.uuid === payload.uuid){
@@ -47,7 +50,7 @@ export const outputBuilderSlice = createSlice({
 
 })
 
-export const { addElement, deleteElement, setDraggedOutputElement, setBreakpoint,updateLayout,updateElementConfiguration } = outputBuilderSlice.actions
+export const { addElement, deleteElement, setDraggedOutputElement, setBreakpoint,updateLayout,updateElementConfiguration,setOutput } = outputBuilderSlice.actions
 export const getOutputs = (state: { outputBuilder: OutputBuilder }) => state.outputBuilder.data
 export const getBreakpoint = (state: { outputBuilder: OutputBuilder }) => state.outputBuilder.breakpoint
 export const getDraggedOutputElement = (state: { outputBuilder: OutputBuilder }) => state.outputBuilder.draggedElement

@@ -45,7 +45,7 @@ export default function BasicSelect(props:SelectProps) {
           // label="Age"
           onChange={handleChange}
         >
-          {config.options.map(item => <MenuItem value={item.value}>{item.name}</MenuItem>)}
+          {config.options.map((item,index) => <MenuItem key={index} value={item.value}>{item.name}</MenuItem>)}
         </Select>
       </FormControl>
     </Box>

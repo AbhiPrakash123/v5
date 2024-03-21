@@ -21,6 +21,9 @@ export const inputBuilderSlice = createSlice({
             }
             state.data = [...state.data, data]
         },
+        setInput(state,{ payload }){
+            state.data = payload
+        },
         updateElementConfiguration(state, { payload }) {
             state.data = state.data.map((item:any) => {
                 if(item.uuid === payload.uuid){
@@ -39,7 +42,7 @@ export const inputBuilderSlice = createSlice({
 
 })
 
-export const { addElement, deleteElement,setDraggedInputElement,updateElementConfiguration } = inputBuilderSlice.actions
+export const { addElement, deleteElement,setDraggedInputElement,updateElementConfiguration,setInput } = inputBuilderSlice.actions
 export const getInputs = (state: { inputBuilder: InputBuilder }) => state.inputBuilder.data
 export const getDraggedElement = (state: { inputBuilder: InputBuilder }) => state.inputBuilder.draggedElement
 export default inputBuilderSlice.reducer

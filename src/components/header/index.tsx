@@ -56,7 +56,7 @@ const Header: React.FC = (props: HeaderProps) => {
                         <Typography>{title}</Typography>
                     }
                 </div>
-                <DeviceTab />
+                {builder ? <DeviceTab /> : "" }
                 <div className='tw-flex tw-flex-row tw-justify-between tw-items-center tw-gap-4'>
                     {builder ? <Button variant='outlined' onClick={save}>save</Button> : ""}
                     {builder ? <Button variant='outlined' onClick={() => dispatch(toggle())}>add element</Button> : ""}

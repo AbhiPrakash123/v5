@@ -41,7 +41,7 @@ const Settings = ({ uuid, configuration }: any) => {
                 </Box>
                 <Divider />
                 {configuration.options.map((item: any,index: number) => (
-                    <Box className=" tw-w-full tw-flex ">
+                    <Box key={index} className=" tw-w-full tw-flex ">
                         <Box sx={{ flex: "1 1 0" }}>{item.name}</Box>
                         <Box sx={{ flex: "1 1 0" }}>{item.value}</Box>
                         <Delete className=" tw-cursor-pointer" onClick={() => deleteOption(index)} />

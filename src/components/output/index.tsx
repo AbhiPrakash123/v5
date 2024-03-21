@@ -5,45 +5,25 @@ import { Responsive, WidthProvider, Layout } from 'react-grid-layout';
 import { generateUUID } from '@/utils';
 import { Box, ListItem, Paper, Divider } from "@mui/material"
 import Delete from '@mui/icons-material/Delete';
-import { FilterList } from '@mui/icons-material';
+import { FilterList, Settings } from '@mui/icons-material';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import { getDraggedOutputElement, addElement } from './outputBuilderSlice';
+import { getDraggedOutputElement, addElement, getBreakpoint, getOutputs, updateLayout } from './outputBuilderSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import OutputContainer from './outputContainer';
-type layoutType = {
-    id: string,
-    i: string,
-    x: number,
-    y: number,
-    w: number,
-    h: number
-}
+import { open as editorOpen } from "@/components/editorSidebar/editorSidebarSlice"
 
-const initialLayout: Array<layoutType> = [];
 const breakpoint = { lg: 1200, md: 996, sm: 400 };
 const cols = { lg: 12, md: 8, sm: 6 };
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-const data = [
-    {
-        id: "dasd",
-        uanme: "asd",
-        configurations: {},
-        layout: {
-            lg: [],
-            md: [],
-            sm: []
-        }
-    }
-]
-
 export default function OutputBuilder() {
-    const [layout, setLayout] = useState(initialLayout)
     const [allLayOut, setAllLayOut] = useState([])
     const [droppable, setDroppable] = useState(false)
     const dispatch = useAppDispatch()
-    const outputElement = useAppSelector(getDraggedOutputElement)
+    const outputElement: any = useAppSelector(getDraggedOutputElement)
+    const currentBreakpoint = useAppSelector(getBreakpoint)
+    const outputs = useAppSelector(getOutputs)
     useEffect(() => {
         if (outputElement === null) {
             setDroppable(false)
@@ -53,25 +33,32 @@ export default function OutputBuilder() {
     }, [outputElement])
 
     const handleDrop = (layout: any, layoutItem: any, _event: any) => {
-        // console.log(layout)
-        // console.log(layoutItem)
+
         if (outputElement === null) return
 
         const { x, y, w, h } = layoutItem
-        // console.log(_event)
         const uuid = generateUUID()
-        const data = { id: uuid, i: uuid, x, y, w: 6, h: 6 }
-        dispatch(addElement({ uname: outputElement, uuid }))
-        setLayout((prev) => [...prev, data])
+        dispatch(
+            addElement(
+                {
+                    ...outputElement,
+                    uuid,
+                    layout: {
+                        'lg': { i: uuid, x, y, w: 6, h: 6 },
+                        'md': { i: uuid, x, y, w: 8, h: 6 },
+                        'sm': { i: uuid, x, y, w: 6, h: 6 },
+                    }
+                }
+            )
+        )
     }
 
     const onLayoutChange = (currentLayout: any, allLayouts: any) => {
         const droppedElement = currentLayout.filter((item: any) => item.i === "__dropping-elem__") // check for valid elemnts
-        console.log(droppedElement)
         if (droppedElement.length >= 1) return
-        console.table(currentLayout)
-        const newLayout = currentLayout.map((item: any) => { return { id: item.i, i: item.i, x: item.x, y: item.y, w: item.w, h: item.h } })
-        setLayout(() => newLayout)
+        currentLayout.map((item: any) => {
+            dispatch(updateLayout({ uuid: item.i, breakpoint: currentBreakpoint, layout: item }))
+        })
     }
 
     const onBreakpointChange = (newBreakpoint: string, newCols: number) => {
@@ -80,13 +67,16 @@ export default function OutputBuilder() {
 
     const deleteConatiner = (event: any, id: string) => {
         event.stopPropagation()
-        setLayout((prev) => prev.filter((item => item.id !== id)))
     }
     // const onResize = (item:any,item2:any) => {
     //     console.log("resize->",item2)
     // }
     // 
-    const resizeH = <div className=' tw-absolute tw-right-0 tw-bottom-0 tw-cursor-se-resize -tw-rotate-45 tw-z-50' >
+    const openSetting = (item:any) => {
+        const data:any = {type:"output",uuid:item.uuid}
+        dispatch(editorOpen(data))
+    }
+    const resizeH = <div className=' tw-absolute tw-right-0 tw-bottom-0 tw-cursor-se-resize -tw-rotate-45 tw-z-10' >
         <FilterList />
     </div>
     return (
@@ -95,7 +85,7 @@ export default function OutputBuilder() {
                 <div className="tw-h-full tw-relative tw-w-full">
                     <ResponsiveReactGridLayout
                         className="layout tw-h-full"
-                        breakpoint='lg'
+                        breakpoint={currentBreakpoint}
                         breakpoints={breakpoint}
                         cols={cols}
                         rowHeight={30}
@@ -112,27 +102,29 @@ export default function OutputBuilder() {
 
 
                     >
-                        {layout.map((item, i) => (
+                        {outputs.map((item: any) => (
                             <Paper
-                                key={item.id}
-                                data-grid={item}
+                                key={item.uuid}
+                                data-grid={item.layout[currentBreakpoint]}
                                 variant='outlined'
                                 className=' tw-flex tw-flex-col tw-flex-shrink-0'
-                                
+
                             >
                                 <Box>
-                                    <Box className=" tw-flex tw-gap-2 tw-p-2">
-                                        <Box className=' tw-flex tw-gap-2'>
-                                            <Box className='dragDivElement tw-cursor-move'><DragIndicatorIcon /></Box>
-                                            <Box className='tw-cursor-pointer' onClick={(event) => deleteConatiner(event, item.id)}><Delete /></Box>
+                                    <Box className=" tw-flex tw-gap-2 tw-p-2 tw-justify-between">
+                                        <Box className=' tw-flex tw-gap-2 tw-items-center'>
+                                            <DragIndicatorIcon className='dragDivElement tw-cursor-move' />
+                                            <span>{item.configuration.title}</span>
                                         </Box>
-                                        <span> Table</span>
+                                        <Box className=' tw-flex tw-gap-2 tw-items-center'>
+                                            <Settings className=" tw-cursor-pointer" onClick={() => openSetting(item)} />
+                                        </Box>
                                     </Box>
                                     <Divider />
                                 </Box>
-                                <Box 
-                                
-                                className=" tw-flex-grow tw-overflow-auto">
+                                <Box
+
+                                    className=" tw-flex-grow tw-overflow-auto">
                                     <OutputContainer item={item} />
                                 </Box>
                             </Paper>

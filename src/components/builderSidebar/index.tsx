@@ -18,7 +18,7 @@ const BuilderSidebar = () => {
     return (
         <Slide direction="left" in={open} mountOnEnter unmountOnExit>
             <Paper
-                className={`tw-w-dvw sm:tw-w-[350px] tw-fixed tw-h-dvh tw-right-0 tw-m-0 tw-px-2 tw-flex tw-flex-col `}
+                className={`tw-w-dvw sm:tw-w-[350px] tw-fixed tw-h-dvh tw-right-0 tw-m-0 tw-px-2 tw-flex tw-flex-col tw-z-20 `}
             >
                 <Box className=" tw-w-full tw-h-[64px] tw-flex tw-flex-col tw-justify-between tw-flex-shrink-0">
                     <Box className=" tw-h-full tw-flex tw-justify-between tw-items-center ">

@@ -31,7 +31,6 @@ export const inputBuilderSlice = createSlice({
         },
         deleteElement(state, { payload }) {
             state.data = state.data.filter((item: any) => item.uuid !== payload)
-            console.log("----------------\n",state.data)
         },
         setDraggedInputElement(state,{ payload }){
             state.draggedElement = payload

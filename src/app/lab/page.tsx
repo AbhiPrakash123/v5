@@ -5,8 +5,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from "@mui/material"
 import Sidebar from "@/components/sidebar";
 import Lab from "@/components/lab";
+import { useAppDispatch } from "@/store/hooks";
 
 export default function Livebench() {
+    
     return (
         <ThemeProvider>
             <CssBaseline />

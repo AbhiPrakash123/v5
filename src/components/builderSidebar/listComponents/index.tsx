@@ -98,7 +98,8 @@ const ListComponents = () => {
     }
 
     const handleOutputDragStart = (item: any) => {
-        dispatch(setDraggedOutputElement(item.uname))
+        const { uname, configuration } = item
+        dispatch(setDraggedOutputElement({ uname, configuration }))
     };
     const handleOutputDragEnd = () => {
         dispatch(setDraggedOutputElement(null))

@@ -2,8 +2,10 @@
 import { Terminal } from 'xterm'
 import { WebLinksAddon } from "xterm-addon-web-links";
 import { FitAddon } from "xterm-addon-fit";
-import { Paper } from '@mui/material';
 import { useEffect, useState, useRef } from 'react'
+import { configuration } from './configuration';
+import { Settings } from './settings';
+
 import "./style.css"
 import 'xterm/css/xterm.css'
 
@@ -14,7 +16,9 @@ const terminalBlackTheme = {
     // ... (other theme properties)
 }
 function LabTerminal(props: any) {
+    const config = props?.configuration ? props.configuration : configuration
     const divRef = useRef(null);
+    const prompt = useRef(config.prompt)
     const history: any = useRef([]);
     const historyIndex = useRef(0);
     const line = useRef("");
@@ -41,18 +45,18 @@ function LabTerminal(props: any) {
         // @ts-ignore
         terminal.open(divRef.current);
         fitAddon.fit();
-        terminal.write("$> ");
+        terminal.write(prompt.current);
 
         const resizeObserver = new ResizeObserver(() => fitAddon.fit());
         // @ts-ignore
         resizeObserver.observe(divRef.current);
 
         terminal.onKey(({ key, domEvent }) => {
-            console.log([domEvent.code])
+            // console.log([domEvent.code])
             if (key === '\x03') { // CTRL + C
                 terminal.writeln('C^');
                 line.current = ""
-                terminal.write('$> ');
+                terminal.write(prompt.current);
             } else {
                 switch (domEvent.code) {
                     case 'Enter': // pressed Enter
@@ -71,15 +75,14 @@ function LabTerminal(props: any) {
                                 }
                         }
                         line.current = ""
-                        terminal.write('\r\n$> ');
+                        terminal.write(`\r\n${prompt.current}`);
                         historyIndex.current = history.current.length
-                        console.log(history.current)
                         break;
                     case "ArrowUp": // pressed up arraow
                         if (historyIndex.current > 0) {
                             historyIndex.current = historyIndex.current - 1;
                             line.current = history.current[historyIndex.current] || ''
-                            terminal.write(`\r$> \x1b[K${line.current}`);
+                            terminal.write(`\r${prompt.current}\x1b[K${line.current}`);
 
                         }
                         break;
@@ -87,17 +90,17 @@ function LabTerminal(props: any) {
                         if (historyIndex.current < history.current.length) {
                             historyIndex.current = historyIndex.current + 1;
                             line.current = history.current[historyIndex.current] || ''
-                            terminal.write(`\r$> \x1b[K${line.current}`);
+                            terminal.write(`\r${prompt.current}\x1b[K${line.current}`);
                         }
                         break;
                     case "ArrowLeft": // pressed down arraow
                         if (historyIndex.current < history.current.length) {
-                            terminal.write(`\r$> \x1b[K${line.current}`);
+                            terminal.write(`\r${prompt.current}\x1b[K${line.current}`);
                         }
                         break;
                     case "ArrowRight": // pressed down arraow
                         if (historyIndex.current < history.current.length) {
-                            terminal.write(`\r$> \x1b[K${line.current}`);
+                            terminal.write(`\r${prompt.current}\x1b[K${line.current}`);
                         }
                         break;
                     case "Backspace":
@@ -108,7 +111,6 @@ function LabTerminal(props: any) {
                         line.current = line.current + key
                         terminal.write(key);
                         // terminal.write(`\r$> ${line.current}`);
-                        console.log([line, key])
                         break;
 
                 }
@@ -123,9 +125,6 @@ function LabTerminal(props: any) {
             // resizeObserver.disconnect();
         }
     }, [])
-    const resize = () => {
-        fitAddon.fit();
-    }
 
     return (
         <>
@@ -145,3 +144,4 @@ function LabTerminal(props: any) {
 }
 
 export default LabTerminal
+export { LabTerminal as element, configuration, Settings }

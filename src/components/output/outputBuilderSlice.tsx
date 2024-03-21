@@ -17,20 +17,38 @@ export const outputBuilderSlice = createSlice({
         addElement(state, { payload }) {
             state.data = [...state.data, payload]
         },
-        deleteElement(state, { payload }) {
-            state.data = []
+        updateElementConfiguration(state, { payload }) {
+            state.data = state.data.map((item:any) => {
+                if(item.uuid === payload.uuid){
+                    item.configuration = payload.configuration
+                }
+                return item
+            })
         },
-        setDraggedOutputElement(state,{ payload }){
+        deleteElement(state, { payload }) {
+            state.data = state.data.filter((item: any) => item.uuid !== payload)
+        },
+        setDraggedOutputElement(state, { payload }) {
             state.draggedElement = payload
         },
-        setBreakpoint(state, { payload }){
+        setBreakpoint(state, { payload }) {
             state.breakpoint = payload
+        },
+        updateLayout(state, { payload }) {
+            const { uuid, breakpoint, layout } = payload
+            state.data = state.data.map((item: any) => {
+                if(item.uuid === uuid){
+                    item.layout[breakpoint] = layout
+                }
+                return item
+            })
         }
     }
 
 })
 
-export const { addElement, deleteElement,setDraggedOutputElement } = outputBuilderSlice.actions
+export const { addElement, deleteElement, setDraggedOutputElement, setBreakpoint,updateLayout,updateElementConfiguration } = outputBuilderSlice.actions
 export const getOutputs = (state: { outputBuilder: OutputBuilder }) => state.outputBuilder.data
+export const getBreakpoint = (state: { outputBuilder: OutputBuilder }) => state.outputBuilder.breakpoint
 export const getDraggedOutputElement = (state: { outputBuilder: OutputBuilder }) => state.outputBuilder.draggedElement
 export default outputBuilderSlice.reducer

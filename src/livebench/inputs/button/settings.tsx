@@ -1,9 +1,9 @@
-import Editor from "@/components/editorSidebar/editor"
+import {InputEditor} from "@/components/editorSidebar/editor"
 
 const Settings = ({ uuid, configuration }: any) => {
     return (
         <>
-        <Editor uuid={uuid} configuration={configuration} />
+        <InputEditor uuid={uuid} configuration={configuration} />
         </>
     )
 }

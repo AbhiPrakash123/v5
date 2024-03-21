@@ -1,4 +1,4 @@
-import Editor from "@/components/editorSidebar/editor"
+import {InputEditor} from "@/components/editorSidebar/editor"
 import { Box, Divider, TextField } from "@mui/material"
 import { Delete, Add } from "@mui/icons-material"
 import { useAppDispatch } from "@/store/hooks"
@@ -33,7 +33,7 @@ const Settings = ({ uuid, configuration }: any) => {
 
     return (
         <>
-            <Editor uuid={uuid} configuration={configuration} />
+            <InputEditor uuid={uuid} configuration={configuration} />
             <EditorTextbox name="lable" value={configuration.lable} callback={updateValue} />
             <Box className=" tw-w-full tw-flex tw-flex-col tw-gap-3 tw-py-3">
                 <Box className=" tw-w-full tw-flex ">

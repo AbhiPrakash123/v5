@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface EditorSidebar {
     isOpen: boolean,
-    element: null | string,
-    uuid: null | string,
+    element: any,
+    type: any
 }
 
 export const EditorSidebarSlice = createSlice({
@@ -11,18 +11,20 @@ export const EditorSidebarSlice = createSlice({
     initialState: {
         isOpen: false,
         element: null,
-        uuid: null
-    } as EditorSidebar,
+        type: null
+    } as any,
     reducers: {
-        open(state,{payload}) {
+        open(state, {payload}:any) {
+            const {type,uuid} = payload
+            console.log(payload)
             state.isOpen = true
-            state.element = payload.uname
-            state.uuid = payload.uuid
+            state.element = uuid
+            state.type = type
         },
         close(state) {
             state.isOpen = false
             state.element = null
-            state.uuid = null
+            state.type = null
         },
         toggle(state) {
             state.isOpen = !state.isOpen
@@ -30,8 +32,8 @@ export const EditorSidebarSlice = createSlice({
     }
 })
 
-export const { open,close,toggle } = EditorSidebarSlice.actions
+export const { open, close, toggle } = EditorSidebarSlice.actions
 export const isOpen = (state: { editorSidebar: EditorSidebar }) => state.editorSidebar.isOpen
-export const editingElement = (state: { editorSidebar: EditorSidebar }) => state.editorSidebar.element
-export const editingElementUUID = (state: { editorSidebar: EditorSidebar }) => state.editorSidebar.uuid
+export const editingElementID = (state: { editorSidebar: EditorSidebar }) => state.editorSidebar.element
+export const editingElementType = (state: { editorSidebar: EditorSidebar }) => state.editorSidebar.type
 export default EditorSidebarSlice.reducer

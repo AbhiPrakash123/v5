@@ -1,16 +1,16 @@
 import { Box } from "@mui/material"
 import { useAppDispatch } from "@/store/hooks"
-import { updateElementConfiguration, deleteElement } from "@/components/input/inputBuilderSlice"
+import { updateElementConfiguration as updateInput } from "@/components/input/inputBuilderSlice"
+import { updateElementConfiguration as updateOutput } from "../output/outputBuilderSlice"
 import { EditorTextbox } from "@/components/editorSidebar/editorTextbox"
 
-const Editor = ({ uuid, configuration }: any) => {
+const InputEditor = ({ uuid, configuration }: any) => {
 
     const dispatch = useAppDispatch()
 
-    console.table(configuration)
     const updateValue = (event: any) => {
         const config = { ...configuration, [event.target.name]: event.target.value }
-        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+        dispatch(updateInput({ uuid, configuration: config }))
     }
     return (
         <Box className=" tw-flex tw-flex-col">
@@ -20,5 +20,21 @@ const Editor = ({ uuid, configuration }: any) => {
         </Box>
     )
 }
+const OutputEditor = ({ uuid, configuration }: any) => {
 
-export default Editor
+    const dispatch = useAppDispatch()
+
+    const updateValue = (event: any) => {
+        const config = { ...configuration, [event.target.name]: event.target.value }
+        dispatch(updateOutput({ uuid, configuration: config }))
+    }
+    return (
+        <Box className=" tw-flex tw-flex-col">
+            <EditorTextbox name={"title"} value={configuration.title} callback={updateValue} />
+            <EditorTextbox name={"event"} value={configuration.event} callback={updateValue} />
+            <EditorTextbox value={uuid} disable/>
+        </Box>
+    )
+}
+
+export {InputEditor,OutputEditor}

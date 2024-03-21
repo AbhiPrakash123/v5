@@ -1,31 +1,47 @@
 
 import LabTable from "./table"
-import BasicLineChart from "./lineGraph"
-import LabTerminal from "./terminal"
+import * as LineGraph from "./lineGraph"
+import * as LabTerminal from "./terminal"
 export interface ElementType {
     name: string,
     uname: string,
     type: string,
     element: any
 }
-const outputs: ElementType[] = [
+const outputs: any = [
     {
-        name: "table",
-        uname: "lab-table-default",
-        type: "table",
-        element: LabTable
-    },
-    {
-        name: "Line Graph",
-        uname: "lab-line-graph-default",
+        name: "line graph",
+        uname: "line-graph",
         type: "charts",
-        element: BasicLineChart
+        configuration: LineGraph.configuration,
+        element: LineGraph.element,
+        settings: LineGraph.Settings
     },
     {
-        name: "Terminal",
-        uname: "terminal-default",
+        name: "terminal",
+        uname: "terminal",
         type: "terminal",
-        element: LabTerminal
-    }
+        configuration: LabTerminal.configuration,
+        element: LabTerminal.element,
+        settings: LabTerminal.Settings
+    },
+    // {
+    //     name: "table",
+    //     uname: "lab-table-default",
+    //     type: "table",
+    //     element: LabTable
+    // },
+    // {
+    //     name: "Line Graph",
+    //     uname: "lab-line-graph-default",
+    //     type: "charts",
+    //     element: BasicLineChart
+    // },
+    // {
+    //     name: "Terminal",
+    //     uname: "terminal-default",
+    //     type: "terminal",
+    //     element: LabTerminal
+    // }
 ]
 export default outputs

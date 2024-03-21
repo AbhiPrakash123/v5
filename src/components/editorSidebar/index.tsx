@@ -1,30 +1,46 @@
-import { Box, Paper,Button, Typography, Divider } from "@mui/material";
+import { Box, Paper, Button, Typography, Divider } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { isOpen,close as editorClose, editingElement, editingElementUUID } from "./editorSidebarSlice"
-import { getInputs,deleteElement } from "../input/inputBuilderSlice";
+import { isOpen, close as editorClose, editingElementID,editingElementType } from "./editorSidebarSlice"
+import { getInputs, deleteElement as deleteInputElement } from "../input/inputBuilderSlice";
+import { getOutputs,deleteElement as deleteOutputElement } from "../output/outputBuilderSlice";
 import inputs from "@/livebench/inputs";
+import outputs from "@/livebench/outputs";
+
 const EditorSidebar = () => {
     const dispatch = useAppDispatch()
     // const [open, setOpen] = useState(true)
     const open = useAppSelector(isOpen)
-    const elementUname = useAppSelector(editingElement)
-    const elementUUID = useAppSelector(editingElementUUID)
+    const elementID = useAppSelector(editingElementID)
+    const elementType = useAppSelector(editingElementType)
     const allInputs = useAppSelector(getInputs)
+    const allOutputs = useAppSelector(getOutputs)
+    var editingInputElement:any;
+    var Setting: any;
+    if (elementType === "input") {
+        editingInputElement = allInputs.filter((item: any) => item.uuid === elementID)[0]
+        Setting = inputs.filter((item: any) => item.uname === editingInputElement.uname)[0]?.settings
 
-    const Setting: any = inputs.filter((item: any) => item.uname === elementUname)[0]?.settings
-    const editingInputElement = allInputs.filter((item: any) => item.uuid === elementUUID)[0]
+    } else if (elementType === "output"){
+        editingInputElement = allOutputs.filter((item: any) => item.uuid === elementID)[0]
+        Setting = outputs.filter((item: any) => item.uname === editingInputElement.uname)[0]?.settings
+    }
+
 
     const deleteInput = () => {
-        dispatch(deleteElement(elementUUID))
+        if (elementType === "input") {
+            dispatch(deleteInputElement(elementID))
+        }else if (elementType === "output") {
+            dispatch(deleteOutputElement(elementID))
+        }
         dispatch(editorClose())
     }
 
     return (
         <Slide direction="left" in={open} mountOnEnter unmountOnExit>
             <Paper
-                className={`tw-fixed tw-h-dvh tw-right-0 tw-m-0 tw-px-2 tw-flex tw-flex-col tw-w-dvw sm:tw-w-[350px]`}
+                className={`tw-fixed tw-h-dvh tw-right-0 tw-m-0 tw-px-2 tw-flex tw-flex-col tw-w-dvw sm:tw-w-[350px] tw-z-20`}
             >
                 <Box className="tw-h-[64px] tw-flex tw-flex-col tw-justify-between tw-flex-shrink-0">
                     <Box className=" tw-h-full tw-flex tw-justify-between tw-items-center ">
@@ -37,7 +53,7 @@ const EditorSidebar = () => {
                 </Box>
 
                 <Box className=" tw-flex-grow tw-overflow-y-auto tw-p-3">
-                    {editingInputElement ? <Setting uuid={elementUUID} configuration={editingInputElement.configuration} /> : ""}
+                    {editingInputElement ? <Setting uuid={elementID} configuration={editingInputElement.configuration} /> : ""}
                     <Button
                         color="error"
                         variant="contained"

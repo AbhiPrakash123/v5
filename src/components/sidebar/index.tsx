@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { motion, useAnimation } from 'framer-motion';
 import { Box, Paper,Divider } from "@mui/material";
-import { LivebenchWhite, LivebenchBlue, TenxerIconBlue } from "../logo";
+import { LivebenchWhite, LivebenchBlue } from "../logo";
 import { getTheme } from '@/lib/features/theme/themeSlice'
 import { useAppSelector } from '@/store/hooks'
 
@@ -93,7 +93,7 @@ const Sidebar: React.FC = () => {
             square
         >
             <Box className="tw-w-full tw-h-[64px] tw-m-0 tw-flex tw-flex-row tw-justify-between tw-items-center">
-                {open ? livebenchLogo : <TenxerIconBlue />}
+                {open ? livebenchLogo : ""}
                 
             </Box>
             <Divider />

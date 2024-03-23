@@ -35,19 +35,24 @@ export default function BasicSelect(props:SelectProps) {
   };
 
   return (
-    <Box className=" tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center">
-      {config.lable?<Typography className=' tw-w-full'>{config.lable}</Typography>:""}
-      <FormControl className=' tw-w-full' size="small">
-        <Select
+    <Box 
+    className=" tw-w-full tw-h-full tw-flex tw-flex-col tw-items-center "
+    >
+      {config.lable?<Typography 
+      className=' tw-w-full tw-flex tw-items-center tw-capitalize' 
+      sx={{height:"35px", fontWeight:500}}
+      >{config.lable}</Typography>:""}
+      <Select
           // labelId="demo-simple-select-label"
           // id="demo-simple-select"
+          sx={{height:"35px"}}
+          className=' tw-w-full'
           value={config.value}
           // label="Age"
           onChange={handleChange}
         >
           {config.options.map((item,index) => <MenuItem key={index} value={item.value}>{item.name}</MenuItem>)}
         </Select>
-      </FormControl>
     </Box>
   );
 }

@@ -20,10 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      
       <body>
         <StoreProvider>
           {children}
         </StoreProvider>
+        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
       </body>
     </html>
   );

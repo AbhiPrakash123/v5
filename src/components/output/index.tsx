@@ -88,6 +88,7 @@ export default function OutputBuilder() {
                         breakpoint={currentBreakpoint}
                         breakpoints={breakpoint}
                         cols={cols}
+                        maxRows={30}
                         rowHeight={30}
                         isBounded={false}
                         preventCollision={false}

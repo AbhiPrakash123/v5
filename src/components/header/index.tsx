@@ -1,5 +1,5 @@
 "use client"
-import { LightMode, DarkMode, Power, Tv, PhoneAndroid, Tablet } from '@mui/icons-material';
+import { LightMode, DarkMode, Power, Tv, PhoneAndroid, Tablet, PowerSettingsNew } from '@mui/icons-material';
 import { getTheme, toggleTheme } from '@/lib/features/theme/themeSlice';
 import { Avatar, Paper, Button, TextField, Typography } from '@mui/material';
 import { HeaderProps } from './header';
@@ -10,7 +10,9 @@ import { getInputs } from '../input/inputBuilderSlice';
 import { getTitle, setTitle } from './headerSlice';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-
+import PlatformHeader from './platformHeader';
+import { Organization } from '../logo';
+import "./style.css"
 const DeviceTab = () => {
     // const [value, setValue] = useState('lg');
     const breakpoint = useAppSelector(getBreakpoint)
@@ -39,34 +41,39 @@ const Header: React.FC = (props: HeaderProps) => {
     const outputs = useAppSelector(getOutputs)
     const dispatch = useAppDispatch()
     const save = () => {
-        console.log({ inputs, outputs,title })
+        console.log({ inputs, outputs, title })
     }
 
     return (
         <Paper variant="outlined" square className='tw-h-full tw-border-t-0 tw-border-l-0 tw-border-r-0'>
             <header className=" tw-h-full tw-flex tw-flex-row tw-justify-between tw-items-center tw-px-3">
-                <div className='tw-box-border tw-h-full tw-flex tw-items-center'>
+                <div className='tw-box-border tw-h-full tw-flex tw-gap-3 tw-items-center'>
                     {/* <EditableText defaultText='Board name' builder={builder} /> */}
+                    <Organization organization="infineon" />
+                    <Typography sx={{ fontWeight: 800, fontSize: "18px",textTransform: "uppercase" }} >AS234</Typography>
+
                     {builder ?
                         <TextField
                             value={title}
                             onChange={(event: any) => dispatch(setTitle(event.target.value))}
                             className=' tw-w-full tw-h-full'
                         /> :
-                        <Typography>{title}</Typography>
+                        <Typography
+                            sx={{ 
+                                fontWeight: 500, 
+                                fontSize: "18px",
+                                textTransform: "capitalize"
+                            }}
+                        >
+                            {title}
+                        </Typography>
                     }
                 </div>
-                {builder ? <DeviceTab /> : "" }
+                {builder ? <DeviceTab /> : ""}
                 <div className='tw-flex tw-flex-row tw-justify-between tw-items-center tw-gap-4'>
-                    {builder ? <Button variant='outlined' onClick={save}>save</Button> : ""}
-                    {builder ? <Button variant='outlined' onClick={() => dispatch(toggle())}>add element</Button> : ""}
-                    <Button variant="contained" color="error">Disconnect<Power /></Button>
-                    <div className=' tw-cursor-pointer' onClick={() => dispatch(toggleTheme())}>
-                        {
-                            theme === 'dark' ? <DarkMode /> : <LightMode />
-                        }
-                    </div>
-                    <Avatar>B</Avatar>
+
+                    <Button variant="contained" color="error"><PowerSettingsNew /></Button>
+
                 </div>
 
             </header>
@@ -75,3 +82,4 @@ const Header: React.FC = (props: HeaderProps) => {
 }
 
 export default Header;
+export { PlatformHeader }

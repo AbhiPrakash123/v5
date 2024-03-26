@@ -35,9 +35,6 @@ const PlatformHeader: React.FC = (props: HeaderProps) => {
                     {builder ? <Button variant='outlined' onClick={save}>save</Button> : ""}
                     {builder ? <Button variant='outlined' onClick={() => dispatch(toggle())}>add element</Button> : ""}
                     <MultiLanguage />
-                    <Tooltip title="Translate"  >
-                        <Translate />
-                    </Tooltip>
                     <div className='tw-flex tw-cursor-pointer ' onClick={() => dispatch(toggleTheme())}>
                         {
                             theme === 'dark' ? <DarkMode className=' tw-cursor-pointer ' /> : <LightMode className=' tw-cursor-pointer ' />

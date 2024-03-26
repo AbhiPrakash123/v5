@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Translate } from "@mui/icons-material";
-import { Box } from "@mui/material"
+import { Box,Tooltip } from "@mui/material"
 import "./style.css"
 
 export default function MultiLanguage() {
@@ -25,6 +25,7 @@ export default function MultiLanguage() {
             );
         }
     };
+
     const triggerEvent = (element, eventName) => {
         const event = new Event(eventName,{"bubbles": true});
         element.dispatchEvent(event);
@@ -40,9 +41,9 @@ export default function MultiLanguage() {
     };
 
     return (
-        <div>
-            <button onClick={changeLanguage}>Change Language to Spanish</button>
-            <div ref={translateElementRef} id="google_translate_element"></div>
+        <div className=" tw-w-[25px] tw-h-[25px] tw-relative ">
+            <div className="tw-z-10 tw-w-[30px] tw-h-[30px] tw-opacity-0 tw-absolute tw-top-0 tw-left-0" ref={translateElementRef} id="google_translate_element"></div>
+            <Translate className=" tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 " />
         </div>
     );
 };

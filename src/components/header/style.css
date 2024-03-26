@@ -39,10 +39,11 @@ body {
     /* border: 0; */
     background-color: transparent;
     font-size: 0;
-    height: 100%;
-    width: 100%;
+    height: 100% !important;
+    width: 100% !important;
     -webkit-appearance: none;
     -moz-appearance: none;
+    cursor: pointer;
 }
 
 .goog-te-combo::-ms-expand {
@@ -50,4 +51,7 @@ body {
 }
 .goog-te-combo option {
     border: 1px solid red;
+}
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf.VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc{
+    display: none;
 }

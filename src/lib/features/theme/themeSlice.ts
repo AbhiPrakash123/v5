@@ -16,14 +16,10 @@ export const themeSlice = createSlice({
     reducers: {
         enableDarkTheme: (state) => {
             state.mode = 'dark'
-            // document.body.classList.add("dark");
-            console.log(state.mode)
 
         },
         enableLightTheme: (state) => {
             state.mode = 'light'
-            // document.body.classList.remove("dark");
-            console.log(state.mode)
 
         },
         toggleTheme: (state) => {

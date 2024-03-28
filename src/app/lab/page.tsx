@@ -18,7 +18,6 @@ export default function Livebench() {
         fetch('/api/boards')
             .then((res) => res.json())
             .then((data: any) => {
-                console.log(data)
                 dispatch(setInput(data.data.inputs))
                 dispatch(setOutput(data.data.outputs))
                 dispatch(setTitle(data.data.title))
@@ -27,12 +26,12 @@ export default function Livebench() {
     return (
         <ThemeProvider>
             <CssBaseline />
-            <Box className="tw-h-dvh tw-w-dvw tw-flex-grow tw-flex tw-flex-col tw-flex-shrink-0">
+            <Box className=" tw-h-screen tw-w-screen tw-flex tw-flex-col ">
                 <Box className="tw-h-[64px]">
                     <PlatformHeader />
                 </Box>
 
-                <Box className="tw-flex-grow">
+                <Box className=" tw-h-[calc(100%-64px)]">
                     <Lab />
                 </Box>
             </Box>

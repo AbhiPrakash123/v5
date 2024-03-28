@@ -17,10 +17,10 @@ const lightTheme = createTheme({
             paper:  '#FFF' //"#ececec"
         },
         primary: {
-            main: '#3b82f6',
+            main: '#1C1F94',
         },
         secondary: {
-            main: '#003A75',
+            main: '#1D1059',
         },
     },
 });
@@ -34,6 +34,7 @@ const darkTheme = createTheme({
         },
         primary: {
             main: '#3b82f6',
+            // main: '#1C1F94',
         },
         secondary: {
             main: '#003A75',

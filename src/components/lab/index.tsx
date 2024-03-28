@@ -16,35 +16,23 @@ const Lab: React.FC = (props: LabProps) => {
                 variant="outlined"
                 square
                 sx={{ backgroundColor: "transparent", borderSize: 4 }}
-                className=" tw-h-full tw-w-full tw-flex tw-flex-col tw-flex-shrink-0 tw-p-0 tw-m-0"
+                className=" tw-h-full tw-w-full tw-p-0 tw-m-0"
             >
-                <Box className=" tw-h-[52px]">
+                <Box className=" tw-h-[3.5rem]">
                     <Header />
                 </Box>
-                <Box className=" tw-flex-grow tw-flex tw-flex-shrink-0 tw-w-full tw-border-0 tw-p-0">
+                <Box className=" tw-h-[calc(100%-3.5rem)] tw-flex  tw-w-full tw-border-0 tw-p-0 ">
                     <Box
-                        className="tw-h-full tw-w-64"
+                        className="tw-h-full tw-w-[300px] tw-flex-shrink-0"
                     >
                         <LabInput builder={builder} />
                     </Box>
-                    <Divider
-                        className="tw-h-full"
-                        orientation="vertical"
-                    />
                     <Box
-                        className="tw-h-ful tw-flex-grow"
+                        className="tw-h-full tw-flex-grow"
                     >
                         <OutputBuilder />
                     </Box>
-                    <Divider
-                        className="tw-h-full"
-                        orientation="vertical"
-                    />
-                    {/* <Box
-                        className="tw-h-full tw-w-64"
-                    >
-                        Co-Pilot
-                    </Box> */}
+
                 </Box>
             </Paper >
         </Box >

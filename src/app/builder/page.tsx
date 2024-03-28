@@ -6,55 +6,36 @@ import { Box, Divider } from "@mui/material"
 import Sidebar from "@/components/sidebar";
 import Lab from "@/components/lab";
 import BuilderSidebar from "@/components/builderSidebar";
-import EditorSidebar from "@/components/editorSidebar"; 
-import {PlatformHeader} from "@/components/header";
-// export default function LabBuilder() {
-//     return (
-//         <ThemeProvider>
-//             <CssBaseline />
-//             <Box className="tw-h-dvh tw-w-dvw tw-flex tw-flex-row tw-flex-shrink-0" >
-//                 <Box className=" tw-h-full tw-flex">
-//                     <Sidebar />
-//                     <Divider
-//                         className="tw-h-full"
-//                         orientation="vertical"
-//                     />
-//                 </Box>
+import EditorSidebar from "@/components/editorSidebar";
+import { PlatformHeader } from "@/components/header";
+import { useAppDispatch } from "@/store/hooks";
+import { setInput } from "@/components/input/inputBuilderSlice";
+import { setOutput } from "@/components/output/outputBuilderSlice";
+import { setTitle } from "@/components/header/headerSlice";
+import { useEffect } from "react";
 
-
-//                 <Box className="tw-flex-grow tw-flex tw-flex-col">
-//                     <Box className="tw-h-[7%]">
-//                         {
-//                             // @ts-ignore 
-//                             <Header builder />
-//                         }
-//                     </Box>
-//                     <Box className="tw-h-[93%]">
-//                         {
-//                             // @ts-ignore 
-//                             <Lab builder />
-//                         }
-//                     </Box>
-//                 </Box>
-//                 <BuilderSidebar />
-//                 <EditorSidebar />
-//             </Box>
-
-//         </ThemeProvider>
-
-//     )
-// }
 export default function LabBuilder() {
+    const dispatch = useAppDispatch()
+    // useEffect(() => {
+    //     fetch('/api/boards')
+    //         .then((res) => res.json())
+    //         .then((data: any) => {
+    //             dispatch(setInput(data.data.inputs))
+    //             dispatch(setOutput(data.data.outputs))
+    //             dispatch(setTitle(data.data.title))
+    //         })
+    // }, [])
     return (
         <ThemeProvider>
             <CssBaseline />
-            <Box className="tw-h-dvh tw-w-dvw tw-flex-grow tw-flex tw-flex-col tw-flex-shrink-0">
-                <Box className="tw-h-[64px]">
-                    <PlatformHeader builder/>
+
+            <Box className=" tw-h-screen tw-w-screen tw-flex tw-flex-col ">
+                <Box className="tw-h-[4rem]">
+                    <PlatformHeader builder />
                 </Box>
 
-                <Box className="tw-flex-grow">
-                    <Lab builder/>
+                <Box className=" tw-h-[calc(100%-4rem)]">
+                    <Lab builder />
                 </Box>
                 <BuilderSidebar />
                 <EditorSidebar />

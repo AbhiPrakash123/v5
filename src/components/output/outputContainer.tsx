@@ -12,7 +12,6 @@ export default function OutputContainer(props: any){
     // const data: any = storeOutputs.filter((ele:any) => ele.uuid === item.id)
     const inputElement: any = outputs.filter((ele:any) => ele.uname === item.uname)
     const Element = inputElement ? inputElement[0].element : Invalid
-    console.log(inputElement)
     return (
         <Box className=" tw-h-full tw-w-full tw-overflow-auto tw-box-border">
             <Element configuration={item.configuration}/>

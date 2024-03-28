@@ -3,6 +3,7 @@ import LabSlider from "./slider"
 import LabSwitch from "./switch"
 import * as Select from "./select"
 import LabTitle from "./title"
+import * as Form from "./formContainer"
 export interface ElementType {
     name: string,
     uname: string,
@@ -19,6 +20,14 @@ const inputs: ElementType[] = [
         configuration: Button.configuration,
         element: Button.element,
         settings: Button.Settings
+    },
+    {
+        name: "form",
+        uname: "lab-form-default",
+        type: "form",
+        configuration: Form.configuration,
+        element: Form.element,
+        settings: Form.Settings
     },
     // {
     //     name: "switch",

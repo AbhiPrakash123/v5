@@ -88,8 +88,8 @@ export default function OutputBuilder() {
                         breakpoint={currentBreakpoint}
                         breakpoints={breakpoint}
                         cols={cols}
-                        maxRows={30}
-                        rowHeight={30}
+                        // maxRows={30}
+                        rowHeight={10}
                         isBounded={false}
                         preventCollision={false}
                         useCSSTransforms={false}
@@ -100,6 +100,8 @@ export default function OutputBuilder() {
                         onBreakpointChange={onBreakpointChange}
                         onDrop={handleDrop}
                         isDroppable={droppable}
+                        containerPadding={[3, 3]}
+                        isDraggable={false}
 
 
                     >

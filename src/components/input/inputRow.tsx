@@ -26,7 +26,7 @@ const InputRow = (props: any) => {
     const dispatch = useAppDispatch()
     console.log({item})
     const openEditMode = () => {
-        const data:any = {type:"input",uuid:item.uuid}
+        const data:any = {type:"input",uuid:item.uuid,item}
         dispatch(editorOpen(data))
     }
 

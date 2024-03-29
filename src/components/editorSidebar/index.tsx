@@ -2,9 +2,9 @@ import { Box, Paper, Button, Typography, Divider } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { isOpen, close as editorClose, editingElementID,editingElementType } from "./editorSidebarSlice"
+import { isOpen, close as editorClose, editingElementID, editingElementType, editingItem } from "./editorSidebarSlice"
 import { getInputs, deleteElement as deleteInputElement } from "../input/inputBuilderSlice";
-import { getOutputs,deleteElement as deleteOutputElement } from "../output/outputBuilderSlice";
+import { getOutputs, deleteElement as deleteOutputElement } from "../output/outputBuilderSlice";
 import inputs from "@/livebench/inputs";
 import outputs from "@/livebench/outputs";
 
@@ -14,15 +14,32 @@ const EditorSidebar = () => {
     const open = useAppSelector(isOpen)
     const elementID = useAppSelector(editingElementID)
     const elementType = useAppSelector(editingElementType)
+    const activeEditingItem = useAppSelector(editingItem)
     const allInputs = useAppSelector(getInputs)
     const allOutputs = useAppSelector(getOutputs)
-    var editingInputElement:any;
+    var editingInputElement: any;
     var Setting: any;
+    console.log(activeEditingItem)
     if (elementType === "input") {
-        editingInputElement = allInputs.filter((item: any) => item.uuid === elementID)[0]
+        for (let item of allInputs) {
+            if (item.uuid === elementID) {
+                editingInputElement = item
+                break
+            }
+            if (item.configuration.type === 'form') {
+                for (let it of item.configuration.elements) {
+                    if (it.uuid === elementID) {
+                        editingInputElement = it
+                        break
+                    }
+                }
+
+            }
+        }
+        console.log(editingInputElement)
         Setting = inputs.filter((item: any) => item.uname === editingInputElement.uname)[0]?.settings
 
-    } else if (elementType === "output"){
+    } else if (elementType === "output") {
         editingInputElement = allOutputs.filter((item: any) => item.uuid === elementID)[0]
         Setting = outputs.filter((item: any) => item.uname === editingInputElement.uname)[0]?.settings
     }
@@ -31,7 +48,7 @@ const EditorSidebar = () => {
     const deleteInput = () => {
         if (elementType === "input") {
             dispatch(deleteInputElement(elementID))
-        }else if (elementType === "output") {
+        } else if (elementType === "output") {
             dispatch(deleteOutputElement(elementID))
         }
         dispatch(editorClose())

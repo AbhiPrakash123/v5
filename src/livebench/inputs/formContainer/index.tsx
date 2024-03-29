@@ -8,7 +8,6 @@ import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { getDraggedElement, addElement, deleteElement, getInputs } from '@/components/input/inputBuilderSlice';
 import { updateElementConfiguration } from "@/components/input/inputBuilderSlice"
 import { generateUUID } from '@/utils';
-import InputRow from '@/components/input/inputRow';
 import { InputLists } from '@/components/input';
 const configuration = {
   label: "Form Container",

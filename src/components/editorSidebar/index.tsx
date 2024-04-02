@@ -7,7 +7,7 @@ import { getInputs, deleteElement as deleteInputElement } from "../input/inputBu
 import { getOutputs, deleteElement as deleteOutputElement } from "../output/outputBuilderSlice";
 import inputs from "@/livebench/inputs";
 import outputs from "@/livebench/outputs";
-
+import { getAllElements } from "../lab/labSlice";
 const EditorSidebar = () => {
     const dispatch = useAppDispatch()
     // const [open, setOpen] = useState(true)

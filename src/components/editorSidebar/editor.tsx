@@ -12,6 +12,7 @@ const InputEditor = ({ uuid, configuration }: any) => {
         const config = { ...configuration, [event.target.name]: event.target.value }
         dispatch(updateInput({ uuid, configuration: config }))
     }
+    
     return (
         <Box className=" tw-flex tw-flex-col">
             <EditorTextbox name={"value"} value={configuration.value} callback={updateValue} />

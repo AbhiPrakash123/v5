@@ -5,6 +5,7 @@ import { LabProps } from "./lab";
 import LabInput from "../input";
 import OutputBuilder from "../output";
 import Header from "../header";
+
 const Lab: React.FC = (props: LabProps) => {
     const { builder } = props
     return (

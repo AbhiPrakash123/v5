@@ -13,7 +13,7 @@ import { deepOrange, deepPurple, grey } from '@mui/material/colors';
 import { LivebenchWhite } from '../logo';
 import MultiLanguage from './multiLang';
 import { LightMode, DarkMode, Power, Tv, PhoneAndroid, Tablet, PowerSettingsNew } from '@mui/icons-material';
-
+import { getLab } from '../lab/labSlice';
 
 const DeviceTab = () => {
     // const [value, setValue] = useState('lg');
@@ -37,13 +37,15 @@ const DeviceTab = () => {
 const PlatformHeader: React.FC = (props: HeaderProps) => {
 
     const { builder } = props
+    const labs = useAppSelector(getLab)
+
     const theme = useAppSelector(getTheme)
     const title = useAppSelector(getTitle)
     const inputs = useAppSelector(getInputs)
     const outputs = useAppSelector(getOutputs)
     const dispatch = useAppDispatch()
     const save = () => {
-        console.log({ inputs, outputs, title })
+        console.log(labs)
     }
     
     return (

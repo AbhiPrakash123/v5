@@ -1,26 +1,32 @@
 import { OutputEditor, } from "@/components/editorSidebar/editor"
 import { EditorTextbox } from '@/components/editorSidebar/editorTextbox';
-import { useAppDispatch } from "@/store/hooks"
-import { updateElementConfiguration } from "@/components/output/outputBuilderSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+// import { updateElementConfiguration } from "@/components/output/outputBuilderSlice";
 import { Box, Divider } from "@mui/material"
 import { Add } from "@mui/icons-material";
+import { updateConfiguration,getAllElements } from "@/components/lab/labSlice";
 
-const Settings = ({ uuid, configuration }: any) => {
-    console.log({ uuid, configuration })
+const Settings = ({ uuid }: any) => {
+    console.log({ uuid })
     const dispatch = useAppDispatch()
+    const elements = useAppSelector(getAllElements)
+    const configuration = elements[uuid].configuration
+
     const updateValue = (event: any) => {
         const config = { ...configuration, axis_label: { ...configuration.axis_label, [event.target.name]: event.target.value } }
-        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+        dispatch(updateConfiguration({ uuid, configuration: config }))
     }
+
     const addLine = (event:any) => {
         const config = { ...configuration, lines: [ ...configuration.lines, {label:`line ${configuration.lines.length + 1}`}] }
-        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+        dispatch(updateConfiguration({ uuid, configuration: config }))
     }
+
     const updateLine = (event:any,index:number) => {
         const update = [...configuration.lines]
         update[index] = {label: event.target.value}
         const config = { ...configuration, lines:update }
-        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+        dispatch(updateConfiguration({ uuid, configuration: config }))
     }
 
     return (

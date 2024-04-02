@@ -8,10 +8,11 @@ import Delete from '@mui/icons-material/Delete';
 import { FilterList, Settings } from '@mui/icons-material';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import { getDraggedOutputElement, addElement, getBreakpoint, getOutputs, updateLayout } from './outputBuilderSlice';
+import { getDraggedOutputElement, getBreakpoint } from './outputBuilderSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import OutputContainer from './outputContainer';
 import { open as editorOpen } from "@/components/editorSidebar/editorSidebarSlice"
+import { addOutput, getOutputs,updateLayout,getAllElements } from '../lab/labSlice';
 
 const breakpoint = { lg: 1200, md: 996, sm: 400 };
 const cols = { lg: 12, md: 8, sm: 6 };
@@ -24,7 +25,9 @@ export default function OutputBuilder() {
     const outputElement: any = useAppSelector(getDraggedOutputElement)
     const currentBreakpoint = useAppSelector(getBreakpoint)
     const outputs = useAppSelector(getOutputs)
-    useEffect(() => {
+    const allElements = useAppSelector(getAllElements)
+
+    useEffect(() => {  
         if (outputElement === null) {
             setDroppable(false)
         } else {
@@ -36,19 +39,9 @@ export default function OutputBuilder() {
 
         if (outputElement === null) return
 
-        const { x, y, w, h } = layoutItem
-        const uuid = generateUUID()
         dispatch(
-            addElement(
-                {
-                    ...outputElement,
-                    uuid,
-                    layout: {
-                        'lg': { i: uuid, x, y, w: 6, h: 6 },
-                        'md': { i: uuid, x, y, w: 8, h: 6 },
-                        'sm': { i: uuid, x, y, w: 6, h: 6 },
-                    }
-                }
+            addOutput(
+                { ...outputElement, layoutItem }
             )
         )
     }
@@ -72,8 +65,8 @@ export default function OutputBuilder() {
     //     console.log("resize->",item2)
     // }
     // 
-    const openSetting = (item:any) => {
-        const data:any = {type:"output",uuid:item.uuid}
+    const openSetting = (item: any) => {
+        const data: any = { type: "output", uuid: item.uuid }
         dispatch(editorOpen(data))
     }
     const resizeH = <div className=' tw-absolute tw-right-0 tw-bottom-0 tw-cursor-se-resize -tw-rotate-45 tw-z-10' >
@@ -102,13 +95,11 @@ export default function OutputBuilder() {
                         isDroppable={droppable}
                         containerPadding={[3, 3]}
                         isDraggable={false}
-
-
                     >
                         {outputs.map((item: any) => (
                             <Paper
                                 key={item.uuid}
-                                data-grid={item.layout[currentBreakpoint]}
+                                data-grid={allElements[item.uuid].layout[currentBreakpoint]}
                                 variant='outlined'
                                 className=' tw-flex tw-flex-col tw-flex-shrink-0'
 
@@ -117,7 +108,7 @@ export default function OutputBuilder() {
                                     <Box className=" tw-flex tw-gap-2 tw-p-2 tw-justify-between">
                                         <Box className=' tw-flex tw-gap-2 tw-items-center'>
                                             <DragIndicatorIcon className='dragDivElement tw-cursor-move' />
-                                            <span>{item.configuration.title}</span>
+                                            <span>{allElements[item.uuid].configuration.title}</span>
                                         </Box>
                                         <Box className=' tw-flex tw-gap-2 tw-items-center'>
                                             <Settings className=" tw-cursor-pointer" onClick={() => openSetting(item)} />
@@ -128,7 +119,7 @@ export default function OutputBuilder() {
                                 <Box
 
                                     className=" tw-flex-grow tw-overflow-auto">
-                                    <OutputContainer item={item} />
+                                    <OutputContainer item={allElements[item.uuid]} />
                                 </Box>
                             </Paper>
                         ))}

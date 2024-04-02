@@ -14,7 +14,7 @@ export const inputBuilderSlice = createSlice({
     reducers: {
         addElement(state, { payload }) {
             const uuid = generateUUID()
-            const data:any = {
+            const data: any = {
                 uname: payload.uname,
                 configuration: payload.configuration,
                 uuid
@@ -42,7 +42,7 @@ export const inputBuilderSlice = createSlice({
 
 })
 
-export const { addElement, deleteElement,setDraggedInputElement,updateElementConfiguration,setInput } = inputBuilderSlice.actions
+export const { addElement, deleteElement, setDraggedInputElement,updateElementConfiguration,setInput } = inputBuilderSlice.actions
 export const getInputs = (state: { inputBuilder: InputBuilder }) => state.inputBuilder.data
 export const getDraggedElement = (state: { inputBuilder: InputBuilder }) => state.inputBuilder.draggedElement
 export default inputBuilderSlice.reducer

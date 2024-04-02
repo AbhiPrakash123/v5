@@ -3,7 +3,7 @@ import LabSlider from "./slider"
 import LabSwitch from "./switch"
 import * as Select from "./select"
 import LabTitle from "./title"
-import * as Form from "./formContainer"
+import * as Form from "./container"
 export interface ElementType {
     name: string,
     uname: string,

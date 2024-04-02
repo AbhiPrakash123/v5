@@ -1,18 +1,15 @@
-import React, { useState, DragEvent, useRef } from 'react';
+import React, { DragEvent, useRef } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Settings } from './settings';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import { getDraggedElement, addElement, deleteElement, getInputs } from '@/components/input/inputBuilderSlice';
+import { getDraggedElement} from '@/components/input/inputBuilderSlice';
 import { updateElementConfiguration } from "@/components/input/inputBuilderSlice"
-import { generateUUID } from '@/utils';
 import { InputLists } from '@/components/input';
+import { addToContainer,getAllElements } from '@/components/lab/labSlice';
+
 const configuration = {
   label: "Form Container",
-  elements: [],
-  type: "form",
+  type: "container",
 }
 
 const DropHere = ({ uuid, configuration }: any) => {
@@ -24,32 +21,30 @@ const DropHere = ({ uuid, configuration }: any) => {
     e.preventDefault();
     if (draggedElement === null) return
 
-    // @ts-ignore
+    // @ts-ignore 
     dropeHereRef.current.style.transform = 'scale(1.2)'
   };
   const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (draggedElement === null) return
 
-    // @ts-ignore
+    // @ts-ignore 
     dropeHereRef.current.style.transform = 'scale(1)'
   }
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-     // @ts-ignore
-     dropeHereRef.current.style.transform = 'scale(1)'
 
-    if (draggedElement === null || draggedElement?.configuration?.type === "form"){
+    // @ts-ignore 
+    dropeHereRef.current.style.transform = 'scale(1)'
 
+    if (draggedElement === null || draggedElement?.configuration?.type === "form") {
       return
     }
-   
-    const newuuid = generateUUID()
-    const newElement = { ...draggedElement, "uuid": newuuid }
-    const config = { ...configuration, ['elements']: [...configuration.elements, newElement] }
-    dispatch(updateElementConfiguration({ uuid, configuration: config }))
-    // dispatch(addElement(draggedElement))
+
+    const newElement = { ...draggedElement, "uuid": uuid }
+    dispatch(addToContainer(newElement))
+
   };
 
 
@@ -68,14 +63,16 @@ const DropHere = ({ uuid, configuration }: any) => {
   )
 }
 
-export default function FromElement(props: any) {
+export default function LabContainer(props: any) {
   const config = props?.configuration ? props.configuration : configuration
   const dispatch = useAppDispatch()
-  const updateElements = (newElement:any) => {
+  const elements = useAppSelector(getAllElements)
+  console.log(elements)
+
+  const updateElements = (newElement: any) => {
     const config = { ...configuration, ['elements']: newElement }
     dispatch(updateElementConfiguration({ uuid: props.uuid, configuration: config }))
   }
-  console.log(config.elements)
   return (
     <Box
       className=" tw-w-full tw-h-full tw-flex tw-flex-col "
@@ -89,11 +86,11 @@ export default function FromElement(props: any) {
         </>
         : ""}
 
-      {config.elements ? <InputLists items={config.elements} builder={true} callback={updateElements} />:""}
+      {props?.items ? <InputLists items={props.items} builder={true} callback={updateElements} /> : ""}
 
       {props?.uuid ?
         <DropHere uuid={props.uuid} configuration={config} /> : ""}
     </Box>
   );
 }
-export { FromElement as element, configuration, Settings }
+export { LabContainer as element, configuration, Settings }

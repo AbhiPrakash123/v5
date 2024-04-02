@@ -3,54 +3,32 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { isOpen, close as editorClose, editingElementID, editingElementType, editingItem } from "./editorSidebarSlice"
-import { getInputs, deleteElement as deleteInputElement } from "../input/inputBuilderSlice";
-import { getOutputs, deleteElement as deleteOutputElement } from "../output/outputBuilderSlice";
 import inputs from "@/livebench/inputs";
 import outputs from "@/livebench/outputs";
 import { getAllElements } from "../lab/labSlice";
+
 const EditorSidebar = () => {
     const dispatch = useAppDispatch()
-    // const [open, setOpen] = useState(true)
     const open = useAppSelector(isOpen)
     const elementID = useAppSelector(editingElementID)
-    const elementType = useAppSelector(editingElementType)
-    const activeEditingItem = useAppSelector(editingItem)
-    const allInputs = useAppSelector(getInputs)
-    const allOutputs = useAppSelector(getOutputs)
-    var editingInputElement: any;
-    var Setting: any;
-    console.log(activeEditingItem)
-    if (elementType === "input") {
-        for (let item of allInputs) {
-            if (item.uuid === elementID) {
-                editingInputElement = item
-                break
-            }
-            if (item.configuration.type === 'form') {
-                for (let it of item.configuration.elements) {
-                    if (it.uuid === elementID) {
-                        editingInputElement = it
-                        break
-                    }
-                }
+    const allElements = useAppSelector(getAllElements)
 
-            }
-        }
-        console.log(editingInputElement)
+    const editingInputElement = allElements[elementID];
+    var Setting: any = null;
+    if (editingInputElement?.component === "input") {
         Setting = inputs.filter((item: any) => item.uname === editingInputElement.uname)[0]?.settings
-
-    } else if (elementType === "output") {
-        editingInputElement = allOutputs.filter((item: any) => item.uuid === elementID)[0]
+    } else if (editingInputElement?.component === "output") {
         Setting = outputs.filter((item: any) => item.uname === editingInputElement.uname)[0]?.settings
     }
+    console.log(editingInputElement)
 
 
     const deleteInput = () => {
-        if (elementType === "input") {
-            dispatch(deleteInputElement(elementID))
-        } else if (elementType === "output") {
-            dispatch(deleteOutputElement(elementID))
-        }
+        // if (elementType === "input") {
+        //     dispatch(deleteInputElement(elementID))
+        // } else if (elementType === "output") {
+        //     dispatch(deleteOutputElement(elementID))
+        // }
         dispatch(editorClose())
     }
 
@@ -70,7 +48,7 @@ const EditorSidebar = () => {
                 </Box>
 
                 <Box className=" tw-flex-grow tw-overflow-y-auto tw-p-3">
-                    {editingInputElement ? <Setting uuid={elementID} configuration={editingInputElement.configuration} /> : ""}
+                    {Setting ? <Setting uuid={elementID} configuration={editingInputElement.configuration} /> : ""}
                     <Button
                         color="error"
                         variant="contained"

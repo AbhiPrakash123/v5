@@ -66,8 +66,7 @@ export default function OutputBuilder() {
     // }
     // 
     const openSetting = (item: any) => {
-        const data: any = { type: "output", uuid: item.uuid }
-        dispatch(editorOpen(data))
+        dispatch(editorOpen(item.uuid))
     }
     const resizeH = <div className=' tw-absolute tw-right-0 tw-bottom-0 tw-cursor-se-resize -tw-rotate-45 tw-z-10' >
         <FilterList />

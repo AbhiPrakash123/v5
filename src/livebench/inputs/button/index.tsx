@@ -17,9 +17,8 @@ const configuration = {
     type: "submit",
 }
 
-
-
 export default function LabButton(props: ButtonProps) {
+    console.log(props)
     const config = props?.configuration ? props.configuration : configuration
 
     return (
@@ -28,7 +27,6 @@ export default function LabButton(props: ButtonProps) {
                 // @ts-ignore
                 <Button className=" tw-w-full" variant={`${config.variant}`}>{config.value}</Button>
             }
-
         </>
     )
 }

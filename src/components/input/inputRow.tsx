@@ -1,21 +1,30 @@
 import { Box, Paper, Divider } from "@mui/material"
 import inputs from '@/livebench/inputs';
 import SettingsIcon from '@mui/icons-material/Settings';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { InputRowPropsType } from "./input";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { open as editorOpen } from "@/components/editorSidebar/editorSidebarSlice"
 import { useState } from "react";
+import { getAllElements } from "../lab/labSlice";
+import LabContainer from "@/livebench/inputs/container";
 const Invalid = () => {
     return (
         <span>invalid</span>
     )
 }
 const InputRow = (props: any) => {
-    const { item, builder } = props
+    console.log(props)
+    const { builder } = props
     const [ isDraggable, setIsDraggable ] = useState(false)
+
+    const elements = useAppSelector(getAllElements)
+
+    const item = elements[props.id]
     const inputElement: any = inputs.filter(ele => ele.uname === item.uname)[0]
     const Element = inputElement ? inputElement.element : Invalid
+
     const defaultFlex = {
         display: "flex",
         flexDirection: "column",
@@ -23,11 +32,11 @@ const InputRow = (props: any) => {
         justifyItems: "center",
         justifyContent: "center"
     }
+
     const dispatch = useAppDispatch()
-    console.log({item})
+
     const openEditMode = () => {
-        const data:any = {type:"input",uuid:item.uuid,item}
-        dispatch(editorOpen(data))
+        dispatch(editorOpen(props.id))
     }
 
     let rowElement;
@@ -36,7 +45,7 @@ const InputRow = (props: any) => {
             <Paper
                 variant="outlined"
                 className=" tw-flex tw-p-2 tw-h-auto tw-w-full"
-                id={item.uuid}
+                id={props.id}
                 draggable={isDraggable}
 
             >
@@ -44,13 +53,17 @@ const InputRow = (props: any) => {
                     className=" tw-w-full tw-relative"
                     sx={defaultFlex}
                 >
-                    {<Element uuid={item.uuid} configuration={item.configuration}/>}
+                    {
+                        props.subelements === undefined?
+                        <Element uuid={props.id} configuration={item.configuration}/>:
+                        <LabContainer uuid={props.id} configuration={item.configuration} items={props.subelements} />
+
+                        }
                 </Box>
                 <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
                 <Box className="tw-flex tw-flex-col tw-justify-center tw-items-center tw-gap-2">
-                    <SettingsIcon className=" tw-cursor-pointer" onClick={() => openEditMode()} />
-                    <DragIndicatorIcon 
-                    className=" tw-cursor-grab" />
+                    <MoreVertIcon className=" tw-cursor-pointer" onClick={() => openEditMode()} />
+                    {/* <DragIndicatorIcon className=" tw-cursor-grab" /> */}
                 </Box>
             </Paper>
 

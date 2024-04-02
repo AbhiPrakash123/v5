@@ -19,17 +19,14 @@ export const EditorSidebarSlice = createSlice({
     } as any,
     reducers: {
         open(state, {payload}:any) {
-            const {type,uuid,item,data} = payload
+            // const {type,uuid,item,data} = payload
             state.isOpen = true
-            state.element = uuid
-            state.item = item
-            state.type = type
-            state.data = data
+            state.element = payload
+            // state.data = data
         },
         close(state) {
             state.isOpen = false
             state.element = null
-            state.type = null
         },
         toggle(state) {
             state.isOpen = !state.isOpen

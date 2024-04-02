@@ -1,4 +1,4 @@
-import { OutputEditor, } from "@/components/editorSidebar/editor"
+import { Editor } from "@/components/editorSidebar/editor"
 import { EditorTextbox } from '@/components/editorSidebar/editorTextbox';
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 // import { updateElementConfiguration } from "@/components/output/outputBuilderSlice";
@@ -7,7 +7,7 @@ import { Add } from "@mui/icons-material";
 import { updateConfiguration,getAllElements } from "@/components/lab/labSlice";
 
 const Settings = ({ uuid }: any) => {
-    console.log({ uuid })
+
     const dispatch = useAppDispatch()
     const elements = useAppSelector(getAllElements)
     const configuration = elements[uuid].configuration
@@ -31,14 +31,16 @@ const Settings = ({ uuid }: any) => {
 
     return (
         <>
-            <OutputEditor uuid={uuid} configuration={configuration} />
+            <Editor uuid={uuid} configuration={configuration} />
             <EditorTextbox name="x" value={configuration.axis_label.x} callback={updateValue} />
             <EditorTextbox name="y" value={configuration.axis_label.y} callback={updateValue} />
             <Box className=" tw-w-full tw-flex" style={{padding:"10px 0"}}>
                 <Box sx={{ flex: "1 1 0" }}>Lines</Box>
                 <Add className=" tw-cursor-pointer" onClick={addLine}/>
             </Box>
+            
             <Divider />
+
             <Box className=" tw-w-full tw-flex tw-flex-col tw-gap-3 ">
                 {configuration.lines.map((item: any,index:number) => {
                     return (
@@ -46,7 +48,6 @@ const Settings = ({ uuid }: any) => {
                     )
                 })}
             </Box>
-
         </>
     )
 }

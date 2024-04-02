@@ -53,11 +53,15 @@ export const LabSlice = createSlice({
 
             const data: any = {
                 uname,
-                configuration
+                configuration,
+                component:"input"
             }
-
             state.lab.elements[uuid] = data
-            const inData = { uuid }
+            let inData:any = { uuid }
+            if(configuration.type === "container"){
+                inData['elements'] = []
+            }
+            
             state.lab.labs[state.currentLab].layout.input = [...state.lab.labs[state.currentLab].layout.input, inData]
 
         },
@@ -70,6 +74,7 @@ export const LabSlice = createSlice({
             const data: any = {
                 uname,
                 configuration,
+                component:"output",
                 layout: {
                     'lg': { i: uuid, x, y, w: 6, h: 6 },
                     'md': { i: uuid, x, y, w: 8, h: 6 },
@@ -87,16 +92,17 @@ export const LabSlice = createSlice({
             const { uuid, uname, configuration } = payload
             const data: any = {
                 uname,
-                configuration
+                configuration,
+                component:"input"
             }
 
             state.lab.elements[elementuuid] = data
 
-            const inData = { elementuuid }
+            const inData = { uuid: elementuuid }
 
-            state.lab.labs[state.currentLab].layout.input = state.lab.labs[state.currentLab].layout.input.map((item) => {
+            state.lab.labs[state.currentLab].layout.input = state.lab.labs[state.currentLab].layout.input.map((item,index) => {
                 if (item.uuid === uuid) {
-                    return { ...item, 'elements': [...item.elements, inData] }
+                    return { ...item,'elements': [...item.elements, inData]}
                 }
                 return item
             })
@@ -109,6 +115,9 @@ export const LabSlice = createSlice({
         updateLayout(state, { payload }) {
             const { uuid, breakpoint, layout } = payload
             state.lab.elements[uuid].layout[breakpoint] = layout
+        },
+        deleteElement(state, { payload }) {
+            
         }
     }
 })
@@ -125,4 +134,5 @@ export const getLab = (state: {'lab': LabType}) => state.lab.lab
 export const getAllElements = (state: {'lab': LabType}) => state.lab.lab.elements
 // export const getAllElements = (state: {'lab': LabType}) => state.lab.lab.elements
 export const getOutputs = (state: {'lab': LabType}) => state.lab.lab.labs[state.lab.currentLab].layout.output
+export const getInputs = (state: {'lab': LabType}) => state.lab.lab.labs[state.lab.currentLab].layout.input
 export default LabSlice.reducer

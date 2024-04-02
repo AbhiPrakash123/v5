@@ -120,10 +120,10 @@ function LabTerminal(props: any) {
 
         })
 
-        return () => {
-            // terminal.dispose()
-            // resizeObserver.disconnect();
-        }
+        // return () => {
+        //     terminal.dispose()
+        //     resizeObserver.disconnect();
+        // }
     }, [])
 
     return (

@@ -1,39 +1,36 @@
-import {InputEditor} from "@/components/editorSidebar/editor"
+import {Editor} from "@/components/editorSidebar/editor"
 import { Box, Divider, TextField } from "@mui/material"
 import { Delete, Add } from "@mui/icons-material"
 import { useAppDispatch } from "@/store/hooks"
-import { updateElementConfiguration } from "@/components/input/inputBuilderSlice"
 import { useState } from "react"
 import { EditorTextbox } from '@/components/editorSidebar/editorTextbox';
-
+import { updateConfiguration } from "@/components/lab/labSlice"
 const Settings = ({ uuid, configuration }: any) => {
     const [ name, setName ] = useState("")
     const [ value, setValue ] = useState("")
     const dispatch = useAppDispatch()
 
-    console.table(configuration)
-
     const addOption = (event: any) => {
         if(name === "" && value === "") return
         const config = { ...configuration, ['options']: [...configuration.options,{name,value}]}
-        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+        dispatch(updateConfiguration({ uuid, configuration: config }))
         setName("")
         setValue("")
     }
     const deleteOption = (indexID: any) => {
 
         const config = { ...configuration, ['options']: configuration.options.filter((item:any,index: number) => index !== indexID)}
-        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+        dispatch(updateConfiguration({ uuid, configuration: config }))
     }
     const updateValue = (event: any) => {
         const config = { ...configuration, [event.target.name]: event.target.value }
-        dispatch(updateElementConfiguration({ uuid, configuration: config }))
+        dispatch(updateConfiguration({ uuid, configuration: config }))
     }
 
 
     return (
         <>
-            <InputEditor uuid={uuid} configuration={configuration} />
+            <Editor uuid={uuid} configuration={configuration} />
             <EditorTextbox name="lable" value={configuration.lable} callback={updateValue} />
             <Box className=" tw-w-full tw-flex tw-flex-col tw-gap-3 tw-py-3">
                 <Box className=" tw-w-full tw-flex ">

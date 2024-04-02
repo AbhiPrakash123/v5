@@ -93,7 +93,7 @@ export default function OutputBuilder() {
                         onDrop={handleDrop}
                         isDroppable={droppable}
                         containerPadding={[3, 3]}
-                        isDraggable={false}
+                        isDraggable={true}
                     >
                         {outputs.map((item: any) => (
                             <Paper

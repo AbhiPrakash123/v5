@@ -5,7 +5,7 @@ import buidlerSidebarSlice from "@/components/builderSidebar/buidlerSidebarSlice
 import editorSidebarSlice from "@/components/editorSidebar/editorSidebarSlice"
 import headerSlice from "@/components/header/headerSlice"
 import labSlice from "@/components/lab/labSlice"
-console.log([labSlice.toString()])
+
 const reducer = {
     theme: themeReducer,
     inputBuilder: inputBuilderReducer,

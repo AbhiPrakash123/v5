@@ -9,10 +9,6 @@ import BuilderSidebar from "@/components/builderSidebar";
 import EditorSidebar from "@/components/editorSidebar";
 import { PlatformHeader } from "@/components/header";
 import { useAppDispatch } from "@/store/hooks";
-import { setInput } from "@/components/input/inputBuilderSlice";
-import { setOutput } from "@/components/output/outputBuilderSlice";
-import { setTitle } from "@/components/header/headerSlice";
-import { useEffect } from "react";
 
 export default function LabBuilder() {
     const dispatch = useAppDispatch()
@@ -31,11 +27,19 @@ export default function LabBuilder() {
 
             <Box className=" tw-h-screen tw-w-screen tw-flex tw-flex-col ">
                 <Box className="tw-h-[4rem]">
-                    <PlatformHeader builder />
+                    {
+                        // @ts-ignore
+                        <PlatformHeader builder />
+                    }
+
                 </Box>
 
                 <Box className=" tw-h-[calc(100%-4rem)]">
-                    <Lab builder />
+                    {
+                        // @ts-ignore
+                        <Lab builder />
+                    }
+
                 </Box>
                 <BuilderSidebar />
                 <EditorSidebar />

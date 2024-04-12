@@ -25,7 +25,6 @@ export default function RootLayout({
         <StoreProvider>
           {children}
         </StoreProvider>
-        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
       </body>
     </html>
   );

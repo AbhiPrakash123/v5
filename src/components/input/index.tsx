@@ -13,7 +13,7 @@ const DropHere = ({ ref }: any) => {
     const draggedElement = useAppSelector(getDraggedElement)
     const dispatch = useAppDispatch()
 
-    const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    const handleDragOver = (e: any) => {
         e.preventDefault();
 
         if (draggedElement === null) return
@@ -22,7 +22,7 @@ const DropHere = ({ ref }: any) => {
         dropeHereRef.current.style.transform = 'scale(1.2)'
     };
 
-    const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
+    const handleDragLeave = (e: any) => {
         e.preventDefault();
 
         if (draggedElement === null) return
@@ -31,7 +31,7 @@ const DropHere = ({ ref }: any) => {
         dropeHereRef.current.style.transform = 'scale(1)'
     }
 
-    const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    const handleDrop = (e: any) => {
         e.preventDefault();
 
         if (draggedElement === null) return
@@ -68,21 +68,21 @@ const InputLists = (props: any) => {
     console.log(items)
     console.log("=================================")
 
-    const dragStart = (e, index) => {
+    const dragStart = (e:any, index:any) => {
 
         e.stopPropagation()
         setDragedElement(index)
 
     }
 
-    const dragEnter = (e, index) => {
+    const dragEnter = (e:any, index:any) => {
         e.stopPropagation()
 
         if (dragedElement === -1) return
         setDraggedPos(index)
     }
 
-    const dragEnd = (e, index) => {
+    const dragEnd = (e:any, index:any) => {
 
         e.stopPropagation()
         const arr = [...items]

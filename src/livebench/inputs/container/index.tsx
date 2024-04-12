@@ -17,14 +17,14 @@ const DropHere = ({ uuid, configuration }: any) => {
   const draggedElement = useAppSelector(getDraggedElement)
   const dispatch = useAppDispatch()
 
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: any) => {
     e.preventDefault();
     if (draggedElement === null) return
 
     // @ts-ignore 
     dropeHereRef.current.style.transform = 'scale(1.2)'
   };
-  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
+  const handleDragLeave = (e: any) => {
     e.preventDefault();
     if (draggedElement === null) return
 
@@ -32,16 +32,17 @@ const DropHere = ({ uuid, configuration }: any) => {
     dropeHereRef.current.style.transform = 'scale(1)'
   }
 
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: any) => {
     e.preventDefault();
 
     // @ts-ignore 
     dropeHereRef.current.style.transform = 'scale(1)'
 
+    // @ts-ignore
     if (draggedElement === null || draggedElement?.configuration?.type === "form") {
       return
     }
-
+    // @ts-ignore
     const newElement = { ...draggedElement, "uuid": uuid }
     dispatch(addToContainer(newElement))
 
